@@ -1,0 +1,88 @@
+CONTROLLER PART
+=============================
+
+TableController
+-----------------------------
+-tables:TableMeneger
+-----------------------------
++openTable();
++saveTable();
+...(delegate to table)
+
+
+
+VIEW PART
+=============================
+
+ViewCreator
+-----------------------------
++setSize(x:int, y:int)
++getView():JPanel
+
+
+TableViewCreator
+-----------------------------
++setTable(:Table)
+-paintTable()
++action()...
+
+
+GraphViewCreator
+-----------------------------
++setTableData(:Table)
+-paintAxis()
+-paintData()
++action()...
+
+
+MODEL PART
+=============================
+
+TablesManager
+-----------------------------
++openTable();
++saveTable();
+
+package entity.table
+.............................
+
+Table
+-----------------------------
+<<constructor>>
++Table(headers:String[]):Table
+
+<<misk>>
++getHeaders():String[]
++setHeader(:int, :String)
+
++geRowCount():int
++geColCount():int
+
++addRow(pos:int, row:double[])
++delRow(pos:int)
++updRow(pos:int, row:double[])
+
++getMaxX():double
++getMinX():double
++getMaxY():double
++getMinY():double
+
+-setMaxX()
+-updMaxX(:double)
+-updMinX(:double)
+-updMaxY(:double)
+-updMinY(:double)
+
+package service.table
+.............................
+
+TableDataFileManger
+-----------------------------
++readTable(:file):Table
++readTable(:String):Table
++writeTable(:Table)
+
+
+package service.calculation
+.............................
+
