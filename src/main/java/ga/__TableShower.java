@@ -1,4 +1,4 @@
-package view;
+package ga;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,13 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class TableShower {
+public class __TableShower {
 
 	private double minr;
 	private double maxr;
 	private double minc;
 	private double maxc;
-	private TableFileReader table;
+	private __TableFileReader table;
 
 	private Color[] pointColor;
 	private int[] pointSize;
@@ -23,7 +23,7 @@ public class TableShower {
 	public static final Color BASE_COLOR = Color.black;
 	public static final int BASE_POINT_SIZE = 1;
 
-	public void setData(TableFileReader table, String fPath) {
+	public void setData(__TableFileReader table, String fPath) {
 		this.table = table;
 		minr = Double.MAX_VALUE;
 		maxr = Double.MIN_VALUE;

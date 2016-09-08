@@ -1,4 +1,4 @@
-package view;
+package ga;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -19,13 +19,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
-public class Inputer {
+public class __Inputer {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 
-			final TableFileReader tableReader = new TableFileReader();
-			final TableShower tableShow = new TableShower();
+			final __TableFileReader tableReader = new __TableFileReader();
+			final __TableShower tableShow = new __TableShower();
 
 			@Override
 			public void run() {

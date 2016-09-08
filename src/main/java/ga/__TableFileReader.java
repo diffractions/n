@@ -1,4 +1,4 @@
-package view;
+package ga;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TableFileReader {
+public class __TableFileReader {
 
 	private String[] collNames = new String[0];
 	private double[][] table = new double[0][0];

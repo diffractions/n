@@ -32,7 +32,7 @@ public class Table {
 		return rowCount;
 	}
 
-	public int getColCount() {
+	public int getCollCount() {
 		return colCount;
 	}
 

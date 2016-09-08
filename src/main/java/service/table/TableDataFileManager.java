@@ -4,14 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 import entity.Table;
 
 public class TableDataFileManager {
 
 	// +writeTable(:Table)
-	private String fPath = null;
 
 	public Table readTable(File file) {
 		return readTable(file.getPath());
@@ -20,7 +19,6 @@ public class TableDataFileManager {
 	public Table readTable(String filePath) {
 
 		Table rtable = null;
-		this.fPath = filePath;
 
 		ArrayList<double[]> table = new ArrayList<>();
 
@@ -73,10 +71,6 @@ public class TableDataFileManager {
 		}
 
 		return rtable;
-	}
-
-	public String getFilePath() {
-		return fPath;
 	}
 
 	// public static void main(String[] args) {
