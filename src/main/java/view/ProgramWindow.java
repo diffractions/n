@@ -14,31 +14,92 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+//import javax.swing.JPanel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
+import java.awt.Component;
 
 import controller.PaintTableController;
 
 public class ProgramWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L; 
+	private JFrame th;
+//	private JPanel panel;
 
-	public void repaint() {
-		setLayout(new GridLayout(1,1));
+	private ComponentListener listener =  new ComponentListener() {
+		@Override
+		public void componentResized(ComponentEvent e) {
+			if(getContentPane().getComponents().length==1)
+				getContentPane().getComponent(0).repaint();
+		}
+				
+		@Override
+		public void componentMoved(ComponentEvent e) {
+			System.out.println(1);
+			if(getContentPane().getComponents().length==1)
+				getContentPane().getComponent(0).repaint();
+		}
+				
+		@Override
+		public void componentShown(ComponentEvent e) {
+			if(getContentPane().getComponents().length==1)
+				getContentPane().getComponent(0).repaint();
+		}
+				
+		@Override
+		public void componentHidden(ComponentEvent e) {
+			if(getContentPane().getComponents().length==1)
+				getContentPane().getComponent(0).repaint();
+		}
+	};
+
+
+
+/*	@Override
+	public Component add(Component comp) {
+		if(comp==panel){
+			return super.add(comp);
+		}
+		panel.add(comp);
+		panel.setVisible(false);
+		panel.repaint();
+		panel.setVisible(true);
+		return comp;
+	};
+*/
+
+	@Override
+	public Component add(Component comp) {
+		if(getContentPane().getComponents().length==1)
+			getContentPane().remove(0);
+		Component compc = getContentPane().add(comp,0);
+		getContentPane().setVisible(false);
+		getContentPane().repaint();
+		getContentPane().setVisible(true);
+		return compc;
 	};
 
 	ProgramWindow(String programName) {
-
 		super(programName);
+		this.th = this;
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				// setSize(800, 400);
-				setLayout(new GridLayout(1,1));
+
+
+			//	setSize(800, 400);
+			//	setLayout(new GridLayout(1,1));
+
+
+		//	panel = new JPanel();
+		//	panel.setSize(getSize().width, getSize().height);
+		//	th.add(panel);
 
 				// final JTable table = new JTable();
 				// final JPanel graph = new JPanel();
@@ -67,6 +128,8 @@ public class ProgramWindow extends JFrame {
 				//
 				// });
 
+
+				addComponentListener(listener);
 				JMenuBar mb_menu = new JMenuBar();
 				JMenu m_program = new JMenu("PROGRAM");
 				mb_menu.add(m_program);

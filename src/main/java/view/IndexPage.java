@@ -25,21 +25,24 @@ public class IndexPage {
 	};
 
 	public void startProgram() {
-		frame = new ProgramWindow(PROGRAM_NAME);
-		frame.setSize(800, 400);
-		startPage = new StartPage(frame.getSize().width, frame.getSize().height);
-		paintStartPage(new TableStory() {
+		if(frame==null){
+			frame = new ProgramWindow(PROGRAM_NAME);
+			frame.setSize(800, 400);
 
-			@Override
-			public Updating getUpdating() {
-				return null;
-			}
-
-			@Override
-			public Table getTable() {
-				return null;
-			}
-		});
+			startPage = new StartPage(frame.getSize().width, frame.getSize().height);
+			paintStartPage(new TableStory() {
+	
+				@Override
+				public Updating getUpdating() {
+					return null;
+				}
+	
+				@Override
+				public Table getTable() {
+					return null;
+				}
+			});
+		}
 	}
 
 	public void paintTableResultPage(TableStory story) {
@@ -51,13 +54,7 @@ public class IndexPage {
 	}
 
 	private void paintTable(Table table, ViewCreator view) {
-		frame.repaint();
 		frame.add(view.getView(table));
-		frame.setVisible(false);
-		frame.repaint();
-		frame.setVisible(true);
-
-
 	}
 
 	public void paintGraphResultPage(TableStory story) {

@@ -20,8 +20,15 @@ public class GraphViewCreator extends AbstractViewCreator implements
 
 	@Override
 	public JPanel getView(Table table) {
-		if (graph == null)
-			graph = new JPanel();
+
+		if (graph == null){
+			graph = new JPanel(){
+				@Override
+				public void repaint(){
+					System.out.println(2);
+				}
+			};
+		}
 		if (table == null)
 			return graph;
 
@@ -55,10 +62,10 @@ public class GraphViewCreator extends AbstractViewCreator implements
 
 		// System.out.println(x+ " " + y);
 
-		 System.out.println(graph.getWidth() + " " + maxPointSize + " "
-		 + graph.getHeight() + " " + maxPointSize);
+		// System.out.println(graph.getWidth() + " " + maxPointSize + " "
+		// + graph.getHeight() + " " + maxPointSize);
 
-		System.out.println(g);
+		//System.out.println(g);
 		g.clearRect(1, 1, graph.getWidth() - maxPointSize, graph.getHeight()
 				- maxPointSize);
 

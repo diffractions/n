@@ -40,6 +40,12 @@ public class TableViewCreator extends AbstractViewCreator implements
 
 	private JTable getJTable(Table table) {
 
+	//	JTable tables = new JTable();
+	//	if (table == null)
+	//		return tables;
+
+
+
 		DefaultTableModel models = new DefaultTableModel();
 
 		for (String collName : table.getHeaders())

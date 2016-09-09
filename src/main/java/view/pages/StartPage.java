@@ -21,6 +21,8 @@ public class StartPage extends AbstractViewCreator implements ViewCreator {
 		super(x, y);
 		this.table = new TableViewCreator(x / 2, y);
 		this.graph = new GraphViewCreator(x / 2, y);
+
+//System.out.println(3);
 	};
 
 	@Override
