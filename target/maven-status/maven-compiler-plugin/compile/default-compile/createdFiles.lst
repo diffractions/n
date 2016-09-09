@@ -2,7 +2,6 @@ service\table\TableDataFileManager.class
 entity\Table.class
 view\IndexPage.class
 ga\__Inputer.class
-view\ProgramWindow$2$1.class
 view\ProgramWindow$1.class
 view\ViewCreator.class
 ga\__Inputer$1$1.class
@@ -20,6 +19,7 @@ view\elements\GraphViewCreator$1.class
 ga\__Inputer$1$2.class
 ga\Ind.class
 ga\InitGA.class
+view\ProgramWindow$3.class
 view\ProgramWindow.class
 view\pages\GraphPage.class
 ga\__TableShower.class
