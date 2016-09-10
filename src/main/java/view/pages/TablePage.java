@@ -1,5 +1,5 @@
 package view.pages;
-
+ 
 import java.awt.Container;
 import java.awt.GridLayout;
 
@@ -20,12 +20,12 @@ public class TablePage extends AbstractViewCreator implements ViewCreator {
 	}
 
 	@Override
-	public JComponent getSizedView(int width, int height, Table table) {
+	public Container getView(int width, int height, Table table) {
 		cont.removeAll();
 		cont.setLayout(new GridLayout(1, 1));
-		cont.add(this.table.getSizedView(width, width, table));
+		cont.add(this.table.getView(width, width, table));
 		cont.revalidate();
-		return null;
+		return cont;
 	}
 
 }

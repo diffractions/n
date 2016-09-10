@@ -20,12 +20,12 @@ public class GraphPage extends AbstractViewCreator implements ViewCreator {
 	private GraphViewCreator graph;
 
 	@Override
-	public JComponent getSizedView(int width, int height, Table table) {
+	public Container getView(int width, int height, Table table) {
 		cont.removeAll();
 		cont.setLayout(new GridLayout(1, 1));
-		cont.add(this.graph.getSizedView(width, width, table));
+		cont.add(this.graph.getView(width, width, table));
 		cont.revalidate();
-		return null;
+		return cont;
 	}
 
 }

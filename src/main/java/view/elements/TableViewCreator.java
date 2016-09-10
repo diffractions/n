@@ -22,7 +22,7 @@ public class TableViewCreator extends AbstractViewCreator implements
 	private JScrollPane view = new JScrollPane(tables);
 
 	@Override
-	public JComponent getSizedView(int width, int height, Table table) {
+	public JComponent getView(int width, int height, Table table) {
 		if (table != null) {
 			tables.setModel(getJTable(table));
 			view.setSize(width, height);

@@ -1,12 +1,11 @@
 package view;
 
-import javax.swing.JComponent;
+import java.awt.Container;
 
 import entity.Table;
 
 public interface ViewCreator {
-	public void getView(Table table);
-
-	public JComponent getSizedView(int width, int height, Table table);
+	public Container getView(Table table);
+	public Container getView(int width, int height, Table table);
 
 }

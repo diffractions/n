@@ -17,7 +17,7 @@ public class GraphViewCreator extends AbstractViewCreator implements
 	}
 
 	@Override
-	public JComponent getSizedView(int width, int height, Table table) {
+	public JComponent getView(int width, int height, Table table) {
 		if (table != null) {
 			JPanel graph = new TableGraphPanel(table);
 			graph.setSize(width, height);

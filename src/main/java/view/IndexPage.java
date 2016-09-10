@@ -45,16 +45,19 @@ public class IndexPage {
 	}
 
 	public void paintTableResultPage(TableStory story) {
-		tableResultPage.getView(story.getTable());
+		frame.setContentPane(tableResultPage.getView(story.getTable()));
+//		tableResultPage.getView(story.getTable());
 
 	}
 
 	public void paintStartPage(TableStory story) {
-		startPage.getView(story.getTable());
+		frame.setContentPane(startPage.getView(story.getTable()));
+//		startPage.getView(story.getTable());
 	}
 
 	public void paintGraphResultPage(TableStory story) {
-		graphResultPage.getView(story.getTable());
+		frame.setContentPane(graphResultPage.getView(story.getTable()));
+//		graphResultPage.getView(story.getTable());
 	}
 
 	public static IndexPage getInstance() {
