@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,47 +17,31 @@ public class TableViewCreator extends AbstractViewCreator implements
 
 	public TableViewCreator(int x, int y) {
 		super(x, y);
-
 	};
+
+	private JTable tables = new JTable();
+	private JScrollPane view = new JScrollPane(tables);
 
 	@Override
 	public JComponent getView(Table table) {
 
-		if (tables == null)
-			tables = new JTable();
-		if (table == null)
-			return new JPanel();
-
-		JTable tables = getJTable(table);
-		JComponent view = new JScrollPane(tables);
-		view.setSize(x, y);
-		view.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		if (table != null) {
+			tables.setModel(getJTable(table));
+//			view.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		}
 		return view;
 	}
 
-	JTable tables = null;
-
-	private JTable getJTable(Table table) {
-
-	//	JTable tables = new JTable();
-	//	if (table == null)
-	//		return tables;
-
-
-
+	private DefaultTableModel getJTable(Table table) {
 		DefaultTableModel models = new DefaultTableModel();
-
 		for (String collName : table.getHeaders())
 			models.addColumn(collName);
-
 		for (double[] s : table.getTable()) {
 			Double d[] = new Double[s.length];
 			for (int i = 0; i < s.length; i++)
 				d[i] = s[i];
 			models.addRow(d);
 		}
-
-		tables.setModel(models);
-		return tables;
+		return models;
 	}
 }

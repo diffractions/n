@@ -1,9 +1,14 @@
 package view.elements;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.AbstractViewCreator;
@@ -15,61 +20,69 @@ public class GraphViewCreator extends AbstractViewCreator implements
 
 	public GraphViewCreator(int x, int y) {
 		super(x, y);
+		this.graph = new JPanel();
+
+//		f.setSize(700, 700);
+//		f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//		f.add(g);
+//		f.setVisible(true);
 
 	};
+
+	// public GraphViewCreator(JPanel graph) {
+	// super(graph.getWidth(), graph.getHeight());
+	// this.graph = graph;
+	// };
+
+	private JPanel graph;
+
+//	JFrame f = new JFrame("H1");
+//	JPanel g = new JPanel();
 
 	@Override
 	public JPanel getView(Table table) {
 
-		if (graph == null){
-			graph = new JPanel(){
-				@Override
-				public void repaint(){
-					System.out.println(2);
-				}
-			};
-		}
-		if (table == null)
-			return graph;
+//		System.out.println("G : GV1 : " + graph.hashCode());
 
-		JPanel graph = paintData(table);
-		paintAxis(table);
-		graph.setBorder(BorderFactory.createLineBorder(Color.RED));
+		if (table != null) {
+//			graph.setBorder(BorderFactory.createLineBorder(Color.RED));
+			paintData(graph, table);
+			paintAxis(table);
+
+			// f.add(paintData(g, table));
+		}
+
+//		f.add(getViews(table)); 
+
+//		System.out.println("G : GV2 : " + graph.hashCode());
+
 		return graph;
 	}
+
+//	public JPanel getViews(Table table) {
+//		System.out.println("G : GVS1 : " + g.hashCode());
+//		if (table != null) {
+////			g.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+//			paintData(g, table);
+//		}
+//		System.out.println("G : GVS2 : " + g.hashCode());
+//		return g;
+//	}
 
 	private void paintAxis(Table table) {
 
 	}
 
-	private JPanel graph = null;
+	private JPanel paintData(JPanel graph, Table table) {
 
-	private JPanel paintData(Table table) {
-
-		graph.setSize(x, y);
+//		System.out.println("G : GV3 : " + graph.hashCode());
 
 		Graphics g = graph.getGraphics();
-
 		int maxPointSize = 10;
-
-		// for (int i = 0; i < table.getColCount() - 1; i++) {
-		// maxPointSize = (pointSize[i] > maxPointSize) ? pointSize[i]
-		// : maxPointSize;
-		// }
-
-		// for (int points : pointSize)
-		// maxPointSize = (points > maxPointSize) ? points : maxPointSize;
-
-		// System.out.println(x+ " " + y);
-
-		// System.out.println(graph.getWidth() + " " + maxPointSize + " "
-		// + graph.getHeight() + " " + maxPointSize);
-
-		//System.out.println(g);
+		System.out.println((graph.getWidth() - maxPointSize) + " "
+				+ (graph.getHeight() - maxPointSize));
 		g.clearRect(1, 1, graph.getWidth() - maxPointSize, graph.getHeight()
 				- maxPointSize);
-
-		// graph.removeAll();
 
 		double[][] tableToDraw = getTableToDraw(table, graph.getWidth()
 				- maxPointSize - 1, graph.getHeight() - maxPointSize - 1);
@@ -77,20 +90,42 @@ public class GraphViewCreator extends AbstractViewCreator implements
 		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
 			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
 
-				// g.setColor(pointColor[collNumber - 1]);
 				g.setColor(Color.BLUE);
 
 				g.drawOval((int) tableToDraw[rowNumber][0],
-						(int) tableToDraw[rowNumber][collNumber], 10, 10);
-				// pointSize[collNumber - 1], pointSize[collNumber - 1]);
+						(int) tableToDraw[rowNumber][collNumber], maxPointSize,
+						maxPointSize);
 
 			}
 		}
-
-		// System.out.println(Arrays.deepToString(tableToDraw));
 		return graph;
-
 	}
+
+//	 private void paintData(Table table) {
+//	
+//	 Graphics g = graph.getGraphics();
+//	 int maxPointSize = 10;
+//	 g.clearRect(1, 1, graph.getWidth() - maxPointSize, graph.getHeight()
+//	 - maxPointSize);
+//	
+//	 double[][] tableToDraw = getTableToDraw(table, graph.getWidth()
+//	 - maxPointSize - 1, graph.getHeight() - maxPointSize - 1);
+//	
+//	 for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++)
+//	 {
+//	 for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
+//	
+//	 g.setColor(Color.BLUE);
+//	
+//	 g.drawOval((int) tableToDraw[rowNumber][0],
+//	 (int) tableToDraw[rowNumber][collNumber], maxPointSize,
+//	 maxPointSize);
+//	
+//	 }
+//	 }
+//	
+//	
+//	 }
 
 	private double[][] getTableToDraw(Table table, int x, int y) {
 

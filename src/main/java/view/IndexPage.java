@@ -1,18 +1,21 @@
 package view;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import service.Updating;
 import view.pages.StartPage;
-import entity.Table;
 import entity.TableStory;
 
 public class IndexPage {
 
+	public static final int HEIGHT = 400;
+	public static final int WIDTH = 800;
 	public static final String PROGRAM_NAME = "Transmittance";
+
 	private static volatile IndexPage page;
 	private JFrame frame;
-	ViewCreator startPage;
+	ViewCreator startPage = new StartPage(WIDTH, HEIGHT);
 	ViewCreator graphResultPage;
 	ViewCreator tableResultPage;
 
@@ -25,39 +28,32 @@ public class IndexPage {
 	};
 
 	public void startProgram() {
-		if(frame==null){
+		if (frame == null) {
 			frame = new ProgramWindow(PROGRAM_NAME);
-			frame.setSize(800, 400);
+			frame.setSize(WIDTH, HEIGHT);
 
-			startPage = new StartPage(frame.getSize().width, frame.getSize().height);
-			paintStartPage(new TableStory() {
-	
-				@Override
-				public Updating getUpdating() {
-					return null;
-				}
-	
-				@Override
-				public Table getTable() {
-					return null;
-				}
-			});
+			JComponent p = startPage.getView(null);
+//			p.setVisible(false);
+//			System.out.println("IP : " + p.hashCode());
+			
+			frame.add(p);
+			// frame.add(graphResultPage.getView(null));
+			// frame.add(tableResultPage.getView(null));
+
 		}
 	}
 
 	public void paintTableResultPage(TableStory story) {
+		frame.add(tableResultPage.getView(story.getTable()));
+
 	}
 
 	public void paintStartPage(TableStory story) {
-		paintTable(story.getTable(), startPage);
-
-	}
-
-	private void paintTable(Table table, ViewCreator view) {
-		frame.add(view.getView(table));
+		frame.add(startPage.getView(story.getTable()));
 	}
 
 	public void paintGraphResultPage(TableStory story) {
+		frame.add(graphResultPage.getView(story.getTable()));
 	}
 
 	public static IndexPage getInstance() {

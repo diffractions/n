@@ -19,7 +19,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
+import service.table.TableDataFileManager;
+
 public class __Inputer {
+
+//	public static void fillGraph(JPanel graph, String fPath) {
+//		view.elements.GraphViewCreator.paintData(graph,
+//				new TableDataFileManager().readTable(fPath));
+//	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -44,12 +51,14 @@ public class __Inputer {
 				new ComponentListener() {
 					@Override
 					public void componentResized(ComponentEvent e) {
-						tableShow.fillGraph(graph, tableReader.getPath());
+						tableShow.
+						fillGraph(graph, tableReader.getPath());
 					}
 
 					@Override
 					public void componentMoved(ComponentEvent e) {
-						tableShow.fillGraph(graph, tableReader.getPath());
+						tableShow.
+						fillGraph(graph, tableReader.getPath());
 					}
 
 					@Override
@@ -78,14 +87,18 @@ public class __Inputer {
 						file.showOpenDialog(frame);
 
 						tableReader.readFile(file.getSelectedFile());
-						tableShow.setData(tableReader, file.getSelectedFile().getPath());
+						tableShow.setData(tableReader, file.getSelectedFile()
+								.getPath());
 
-						tableShow.setPointSize( tableReader.getPath(), 1, 15, 10, 7);
-						tableShow.setPointColor( tableReader.getPath(), Color.BLACK, Color.YELLOW, Color.RED,
+						tableShow.setPointSize(tableReader.getPath(), 1, 15,
+								10, 7);
+						tableShow.setPointColor(tableReader.getPath(),
+								Color.BLACK, Color.YELLOW, Color.RED,
 								Color.BLUE);
 
 						tableShow.fillTable(table, tableReader.getPath());
-						tableShow.fillGraph(graph, tableReader.getPath());
+						tableShow.
+						fillGraph(graph, tableReader.getPath());
 
 					}
 

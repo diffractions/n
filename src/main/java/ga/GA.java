@@ -1,8 +1,6 @@
 package ga;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -138,8 +136,8 @@ public class GA implements Runnable {
 				new Thread(tg, new GA(length, count, t[0], t[1], t[2], tg, set,
 						cdl), "TN - " + count).start();
 
-			 cdl.await(30, TimeUnit.SECONDS);
-//			cdl.await(200, TimeUnit.MILLISECONDS);
+			cdl.await(30, TimeUnit.SECONDS);
+			// cdl.await(200, TimeUnit.MILLISECONDS);
 			tg.interrupt();
 			// System.out.println(t[0] + "\t" + t[1] + " :\t " + set);
 			// System.out.println(t[3] + " :\t " + set);
@@ -160,11 +158,7 @@ public class GA implements Runnable {
 	public void run() {
 
 		ArrayList<Ind> t = new ArrayList<Ind>();
-		
-		
-	
-		
-		
+
 		for (int r = 0; r < ind_count; r++) {
 			Ind s = IndFactory.genRand(arr_length, xmin, xmax, nmin, nmax, ns,
 					RMm, Rmm, rand);
@@ -175,10 +169,10 @@ public class GA implements Runnable {
 			while (!Thread.currentThread().isInterrupted()) {
 
 				for (int c = 0; c < 100; c++) {
-					
+
 					Collections.sort(t, Ind.getComparator());
-					
-//					t.sort(Ind.getComparator());
+
+					// t.sort(Ind.getComparator());
 
 					if (t.get(0).getFitness() < error) {
 						tg.interrupt();

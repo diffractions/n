@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import service.table.TableDataFileManager;
+
 public class __TableShower {
 
 	private double minr;
@@ -93,6 +95,9 @@ public class __TableShower {
 
 	public void fillGraph(JPanel graph, String fPath) {
 
+		
+
+		
 		if (table == null || !this.fPath.equals(fPath))
 			return;
 

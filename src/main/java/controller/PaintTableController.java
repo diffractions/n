@@ -1,10 +1,10 @@
 package controller;
 
-import service.table.TableDataFileManager;
-import view.IndexPage;
 import entity.Table;
 import entity.TableViewStory;
 import entity.TablesStory;
+import service.table.TableDataFileManager;
+import view.IndexPage;
 
 public class PaintTableController {
 
