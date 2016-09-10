@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -12,9 +13,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
-
-import java.awt.Component;
-import java.awt.FlowLayout;
 
 import controller.PaintTableController;
 
@@ -60,22 +58,41 @@ public class ProgramWindow extends JFrame {
 		}
 	};
 
+	private ActionListener nextStageListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			PaintTableController.getInstance().nextStage();
+		}
+	};
+	private ActionListener pervStageListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			PaintTableController.getInstance().pervStage();
+		}
+	};
+
+
 	private JMenuBar mb_menu = new JMenuBar();
 	private JMenu m_program = new JMenu("PROGRAM");
 	private JMenuItem mi_open = m_program.add("OPEN");
 	private JMenuItem paste = m_program.add("Paste");
+	
 
-//	 @Override
-//	 public Component add(Component comp) {
-//	 if (getContentPane().getComponents().length == 1)
-//	 getContentPane().remove(0);
-//	 // Component compc = getContentPane().add(comp, 0);
-//	 // getContentPane().setVisible(false);
-//	 // getContentPane().repaint();
-//	 // getContentPane().setVisible(true);
-//	 // return compc;
-//	 return getContentPane().add(comp, 0);
-//	 };
+	private JMenuItem m_back = new JMenuItem("Back");
+	private JMenuItem m_next = new JMenuItem("Next");
+	
+	
+	 @Override
+	 public Component add(Component comp) {
+	 if (getContentPane().getComponents().length == 1)
+	 getContentPane().remove(0);
+	 // Component compc = getContentPane().add(comp, 0);
+	 // getContentPane().setVisible(false);
+	 // getContentPane().repaint();
+	 // getContentPane().setVisible(true);
+	 // return compc;
+	 return getContentPane().add(comp, 0);
+	 };
 
 	ProgramWindow(String programName) {
 		super(programName);
@@ -84,12 +101,16 @@ public class ProgramWindow extends JFrame {
 		mi_open.addActionListener(openFileListener);
 		m_program.addSeparator();
 		paste.setEnabled(false);
-		
 
+		mb_menu.add(m_back);
+		mb_menu.add(m_next);
+		m_back.addActionListener(pervStageListener);
+		m_next.addActionListener(nextStageListener);
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				addComponentListener(listener);
 				setJMenuBar(mb_menu);
 				setVisible(true);

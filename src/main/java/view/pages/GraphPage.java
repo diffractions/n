@@ -1,19 +1,30 @@
 package view.pages;
 
-import javax.swing.JPanel;
+import java.awt.Container;
+import java.awt.GridLayout;
+
+import javax.swing.JComponent;
 
 import entity.Table;
 import view.AbstractViewCreator;
 import view.ViewCreator;
+import view.elements.GraphViewCreator;
 
 public class GraphPage extends AbstractViewCreator implements ViewCreator {
-	GraphPage(int x, int y) {
-		super(x, y);
-	};
+
+	public GraphPage(Container cont) {
+		super(cont);
+		this.graph = new GraphViewCreator(cont);
+	}
+
+	private GraphViewCreator graph;
 
 	@Override
-	public JPanel getView(Table table) {
-		// TODO Auto-generated method stub
+	public JComponent getSizedView(int width, int height, Table table) {
+		cont.removeAll();
+		cont.setLayout(new GridLayout(1, 1));
+		cont.add(this.graph.getSizedView(width, width, table));
+		cont.revalidate();
 		return null;
 	}
 

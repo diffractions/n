@@ -32,6 +32,14 @@ public class PaintTableController {
 		indexPage.paintTableResultPage(story.getStory(RESULT_TABLE_NAME));
 	}
 
+	public void nextStage() {
+		indexPage.paintGraphResultPage(story.getStory(START_TABLE_NAME));
+	}
+
+	public void pervStage() {
+		indexPage.paintTableResultPage(story.getStory(START_TABLE_NAME));
+	}
+
 	public void start() {
 		indexPage.startProgram();
 	}

@@ -1,10 +1,11 @@
 package view;
 
-import javax.swing.JComponent;
+import java.awt.Container;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
+import view.pages.GraphPage;
 import view.pages.StartPage;
+import view.pages.TablePage;
 import entity.TableStory;
 
 public class IndexPage {
@@ -15,9 +16,11 @@ public class IndexPage {
 
 	private static volatile IndexPage page;
 	private JFrame frame;
-	ViewCreator startPage = new StartPage(WIDTH, HEIGHT);
-	ViewCreator graphResultPage;
-	ViewCreator tableResultPage;
+
+	private Container cont;
+	private ViewCreator startPage;
+	private ViewCreator graphResultPage;
+	private ViewCreator tableResultPage;
 
 	public static void main(String[] args) {
 		IndexPage.getInstance();
@@ -32,28 +35,26 @@ public class IndexPage {
 			frame = new ProgramWindow(PROGRAM_NAME);
 			frame.setSize(WIDTH, HEIGHT);
 
-			JComponent p = startPage.getView(null);
-//			p.setVisible(false);
-//			System.out.println("IP : " + p.hashCode());
-			
-			frame.add(p);
-			// frame.add(graphResultPage.getView(null));
-			// frame.add(tableResultPage.getView(null));
+			cont = frame.getContentPane();
+
+			startPage = new StartPage(cont);
+			graphResultPage = new GraphPage(cont);
+			tableResultPage = new TablePage(cont);
 
 		}
 	}
 
 	public void paintTableResultPage(TableStory story) {
-		frame.add(tableResultPage.getView(story.getTable()));
+		tableResultPage.getView(story.getTable());
 
 	}
 
 	public void paintStartPage(TableStory story) {
-		frame.add(startPage.getView(story.getTable()));
+		startPage.getView(story.getTable());
 	}
 
 	public void paintGraphResultPage(TableStory story) {
-		frame.add(graphResultPage.getView(story.getTable()));
+		graphResultPage.getView(story.getTable());
 	}
 
 	public static IndexPage getInstance() {

@@ -1,8 +1,7 @@
 package view.elements;
 
-import java.awt.Color;
+import java.awt.Container;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,19 +14,18 @@ import entity.Table;
 public class TableViewCreator extends AbstractViewCreator implements
 		ViewCreator {
 
-	public TableViewCreator(int x, int y) {
-		super(x, y);
+	public TableViewCreator(Container cont) {
+		super(cont);
 	};
 
 	private JTable tables = new JTable();
 	private JScrollPane view = new JScrollPane(tables);
 
 	@Override
-	public JComponent getView(Table table) {
-
+	public JComponent getSizedView(int width, int height, Table table) {
 		if (table != null) {
 			tables.setModel(getJTable(table));
-//			view.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			view.setSize(width, height);
 		}
 		return view;
 	}
@@ -44,4 +42,5 @@ public class TableViewCreator extends AbstractViewCreator implements
 		}
 		return models;
 	}
+
 }
