@@ -1,15 +1,28 @@
 package controller;
 
 import entity.Table;
-import entity.TableViewStory;
-import entity.TablesStory;
+//import entity.TableViewStory;
+//import entity.TablesStory;
 import service.table.TableDataFileManager;
-import view.IndexPage;
+import view.PageManager;
 
 public class PaintTableController {
 
+	private static volatile PaintTableController page;
+
 	public static PaintTableController getInstance() {
-		return new PaintTableController();
+
+		PaintTableController local = page;
+		if (local == null) {
+			synchronized (PageManager.class) {
+				local = page;
+				if (local == null) {
+					page = local = new PaintTableController();
+				}
+			}
+		}
+		return page;
+
 	}
 
 	public static final String RESULT_TABLE_NAME = "ResultTable";
@@ -17,30 +30,29 @@ public class PaintTableController {
 	public static final String[] RESULT_HEADERS = new String[] { "A", "B", "C",
 			"D", "E" };
 
-	private TablesStory story = TableViewStory.getInstance();
-	private IndexPage indexPage = IndexPage.getInstance();
+	Table startTable = null;
+	Table resultTable = null;
+
+	private PageManager indexPage = PageManager.getInstance();
 	TableDataFileManager tdfm = new TableDataFileManager();
 
 	public void openStartTable(String fPath) {
-		story.setStory(START_TABLE_NAME, tdfm.readTable(fPath));
-		indexPage.paintStartPage(story.getStory(START_TABLE_NAME));
+		startTable = tdfm.readTable(fPath);
+		indexPage.paintStartPage(startTable);
 	}
 
 	public void createResultTable() {
-		story.setStory(RESULT_TABLE_NAME, new Table(RESULT_HEADERS));
-		indexPage.paintGraphResultPage(story.getStory(RESULT_TABLE_NAME));
-		indexPage.paintTableResultPage(story.getStory(RESULT_TABLE_NAME));
 	}
 
 	public void nextStage() {
-		indexPage.paintGraphResultPage(story.getStory(START_TABLE_NAME));
+		indexPage.paintGraphResultPage(startTable);
 	}
 
 	public void pervStage() {
-		indexPage.paintTableResultPage(story.getStory(START_TABLE_NAME));
+		indexPage.paintTableResultPage(startTable);
 	}
 
-	public void start() {
-		indexPage.startProgram();
-	}
+//	public void start() {
+//		indexPage.startProgram();
+//	}
 }

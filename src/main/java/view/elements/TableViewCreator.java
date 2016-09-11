@@ -1,31 +1,39 @@
 package view.elements;
 
-import java.awt.Container;
-
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import view.AbstractViewCreator;
 import view.ViewCreator;
 import entity.Table;
 
-public class TableViewCreator extends AbstractViewCreator implements
+public class TableViewCreator /* extends AbstractViewCreator */implements
 		ViewCreator {
 
-	public TableViewCreator(Container cont) {
-		super(cont);
-	};
+	// public TableViewCreator(Container cont) {
+	// super(cont);
+	// };
+
+	// public TableViewCreator() {
+	// };
 
 	private JTable tables = new JTable();
 	private JScrollPane view = new JScrollPane(tables);
 
+	// @Override
+	// public JComponent getView(int width, int height, Table table) {
+	// // if (table != null) {
+	// // tables.setModel(getJTable(table));
+	// // view.setSize(width, height);
+	// // }
+	// return view;
+	// }
+
 	@Override
-	public JComponent getView(int width, int height, Table table) {
+	public JComponent getView(Table table) {
 		if (table != null) {
 			tables.setModel(getJTable(table));
-			view.setSize(width, height);
 		}
 		return view;
 	}

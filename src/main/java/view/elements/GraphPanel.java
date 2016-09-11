@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 
 import entity.Table;
 
-class TableGraphPanel extends JPanel {
+class GraphPanel extends JPanel {
 
-	public TableGraphPanel(Table table) {
+	public GraphPanel(Table table) {
 		this.table = table;
 	}
 

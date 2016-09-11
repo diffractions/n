@@ -3,29 +3,30 @@ package view.pages;
 import java.awt.Container;
 import java.awt.GridLayout;
 
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import entity.Table;
-import view.AbstractViewCreator;
+//import view.AbstractViewCreator;
 import view.ViewCreator;
 import view.elements.GraphViewCreator;
 
-public class GraphPage extends AbstractViewCreator implements ViewCreator {
+public class GraphPage /*extends AbstractViewCreator*/ implements ViewCreator {
 
-	public GraphPage(Container cont) {
-		super(cont);
-		this.graph = new GraphViewCreator(cont);
+	public GraphPage() {
+		this.graph = new GraphViewCreator();
+		this.p = new JPanel();
 	}
 
+	private JPanel p;
 	private GraphViewCreator graph;
 
 	@Override
-	public Container getView(int width, int height, Table table) {
-		cont.removeAll();
-		cont.setLayout(new GridLayout(1, 1));
-		cont.add(this.graph.getView(width, width, table));
-		cont.revalidate();
-		return cont;
+	public Container getView(Table table) {
+		p.removeAll();
+		p.setLayout(new GridLayout(1, 1));
+		p.add(this.graph.getView(table));
+		p.revalidate();
+		return p;
 	}
 
 }

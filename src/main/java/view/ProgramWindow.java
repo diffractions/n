@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -12,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 
 import controller.PaintTableController;
 
@@ -71,30 +69,30 @@ public class ProgramWindow extends JFrame {
 		}
 	};
 
-
 	private JMenuBar mb_menu = new JMenuBar();
 	private JMenu m_program = new JMenu("PROGRAM");
 	private JMenuItem mi_open = m_program.add("OPEN");
 	private JMenuItem paste = m_program.add("Paste");
-	
 
 	private JMenuItem m_back = new JMenuItem("Back");
 	private JMenuItem m_next = new JMenuItem("Next");
-	
-	
-	 @Override
-	 public Component add(Component comp) {
-	 if (getContentPane().getComponents().length == 1)
-	 getContentPane().remove(0);
-	 // Component compc = getContentPane().add(comp, 0);
-	 // getContentPane().setVisible(false);
-	 // getContentPane().repaint();
-	 // getContentPane().setVisible(true);
-	 // return compc;
-	 return getContentPane().add(comp, 0);
-	 };
 
-	ProgramWindow(String programName) {
+	// @Override
+	// public Component add(Component comp) {
+	// if (getContentPane().getComponents().length == 1)
+	// getContentPane().remove(0);
+	// // Component compc = getContentPane().add(comp, 0);
+	// // getContentPane().setVisible(false);
+	// // getContentPane().repaint();
+	// // getContentPane().setVisible(true);
+	// // return compc;
+	// return getContentPane().add(comp, 0);
+	// };
+
+	public static int WIDTH_SIZE = 800;
+	public static int HEIGHT_SIZE = 400;
+
+	public ProgramWindow(String programName) {
 		super(programName);
 
 		mb_menu.add(m_program);
@@ -106,15 +104,9 @@ public class ProgramWindow extends JFrame {
 		mb_menu.add(m_next);
 		m_back.addActionListener(pervStageListener);
 		m_next.addActionListener(nextStageListener);
-		
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				addComponentListener(listener);
-				setJMenuBar(mb_menu);
-				setVisible(true);
-			}
-		});
+
+		addComponentListener(listener);
+		setJMenuBar(mb_menu);
+		setSize(WIDTH_SIZE, HEIGHT_SIZE);
 	}
 }
