@@ -8,27 +8,16 @@ import javax.swing.table.DefaultTableModel;
 import view.ViewCreator;
 import entity.Table;
 
-public class TableViewCreator /* extends AbstractViewCreator */implements
-		ViewCreator {
+public class TableViewCreator implements ViewCreator {
 
-	// public TableViewCreator(Container cont) {
-	// super(cont);
-	// };
+	private JTable tables;
+	private JScrollPane view;
 
-	// public TableViewCreator() {
-	// };
+	public TableViewCreator() {
+		tables = new JTable();
+		view = new JScrollPane(tables);
 
-	private JTable tables = new JTable();
-	private JScrollPane view = new JScrollPane(tables);
-
-	// @Override
-	// public JComponent getView(int width, int height, Table table) {
-	// // if (table != null) {
-	// // tables.setModel(getJTable(table));
-	// // view.setSize(width, height);
-	// // }
-	// return view;
-	// }
+	}
 
 	@Override
 	public JComponent getView(Table table) {

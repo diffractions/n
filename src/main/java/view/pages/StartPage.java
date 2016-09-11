@@ -1,62 +1,31 @@
 package view.pages;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-//import view.AbstractViewCreator;
+import view.AbstractViewCreator;
 import view.ViewCreator;
 import view.elements.GraphViewCreator;
 import view.elements.TableViewCreator;
 import entity.Table;
 
-public class StartPage /*extends AbstractViewCreator*/ implements ViewCreator {
+public class StartPage extends AbstractViewCreator implements ViewCreator {
 
-	private TableViewCreator table_s;
-	private GraphViewCreator graph_s;
-
-	// public StartPage(Container cont) {
-	// super(cont);
-	// this.table_s = new TableViewCreator(cont);
-	// this.graph_s = new GraphViewCreator(cont);
-	// }
+	private TableViewCreator table;
+	private GraphViewCreator graph;
 
 	public StartPage() {
-//		this.table_s = new TableViewCreator(cont);
-//		this.graph_s = new GraphViewCreator(cont);
-		this.table_s = new TableViewCreator( );
-		this.graph_s = new GraphViewCreator();
+		this.table = new TableViewCreator();
+		this.graph = new GraphViewCreator();
+		this.pageToView = new JPanel();
 	}
 
 	@Override
-	public Container getView(Table table) {
-		// public Container getView(int width, int height, Table table) {
-		// cont.removeAll();
-		// cont.setLayout(new GridLayout(1, 2));
-
-		// cont.add(this.table_s.getView(cont.getWidth() / 2, cont.getHeight(),
-		// table));
-		// cont.add(this.graph_s.getView(cont.getWidth() / 2, cont.getHeight(),
-		// table));
-
-		// cont.add(this.table_s.getView(table));
-		// cont.add(this.graph_s.getView(table));
-
-		// cont.revalidate();
-		// return cont;
-
-		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(1, 2));
-		p.add(this.table_s.getView(table));
-		p.add(this.graph_s.getView(table));
-		return p;
-
+	public void fillComponent(Table table) {
+		pageToView.setLayout(new GridLayout(1, 2));
+		pageToView.add(this.table.getView(table));
+		pageToView.add(this.graph.getView(table));
 	}
-
-//	@Override
-//	public Container getView(int width, int height, Table table) { 
-//		return null;
-//	}
 
 }
