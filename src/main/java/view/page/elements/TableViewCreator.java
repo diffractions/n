@@ -1,11 +1,10 @@
-package view.elements;
+package view.page.elements;
 
-import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import view.ViewCreator;
+import view.page.ViewCreator;
 import entity.Table;
 
 public class TableViewCreator implements ViewCreator {
@@ -20,10 +19,8 @@ public class TableViewCreator implements ViewCreator {
 	}
 
 	@Override
-	public JComponent getView(Table table) {
-		if (table != null) {
-			tables.setModel(getJTable(table));
-		}
+	public JScrollPane getView(Table table) {
+		tables.setModel(getJTable(table));
 		return view;
 	}
 

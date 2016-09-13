@@ -1,19 +1,19 @@
-package view.pages;
+package view.page.panels;
 
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import view.AbstractViewCreator;
-import view.ViewCreator;
-import view.elements.TableViewCreator;
+import view.page.AbstractPageViewCreator;
+import view.page.ViewCreator;
+import view.page.elements.TableViewCreator;
 import entity.Table;
 
-public class TablePage extends AbstractViewCreator implements ViewCreator {
+public class TablePanel extends AbstractPageViewCreator implements ViewCreator {
 
 	private TableViewCreator table;
 
-	public TablePage() {
+	public TablePanel() {
 		this.table = new TableViewCreator();
 		this.pageToView = new JPanel();
 	}

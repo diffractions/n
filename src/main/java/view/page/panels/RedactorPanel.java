@@ -1,21 +1,21 @@
-package view.pages;
+package view.page.panels;
 
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import view.AbstractViewCreator;
-import view.ViewCreator;
-import view.elements.GraphViewCreator;
-import view.elements.TableViewCreator;
+import view.page.AbstractPageViewCreator;
+import view.page.ViewCreator;
+import view.page.elements.GraphViewCreator;
+import view.page.elements.TableViewCreator;
 import entity.Table;
 
-public class StartPage extends AbstractViewCreator implements ViewCreator {
+public class RedactorPanel extends AbstractPageViewCreator implements ViewCreator {
 
 	private TableViewCreator table;
 	private GraphViewCreator graph;
 
-	public StartPage() {
+	public RedactorPanel() {
 		this.table = new TableViewCreator();
 		this.graph = new GraphViewCreator();
 		this.pageToView = new JPanel();

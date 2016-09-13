@@ -1,12 +1,18 @@
 package controller;
 
 import entity.Table;
-//import entity.TableViewStory;
-//import entity.TablesStory;
 import service.table.TableDataFileManager;
-import view.PageManager;
+import view.page.PageManager;
 
 public class PaintTableController {
+
+	public PageManager getIndexPage() {
+		return indexPage;
+	}
+
+	public void setIndexPage(PageManager indexPage) {
+		this.indexPage = indexPage;
+	}
 
 	private static volatile PaintTableController page;
 
@@ -18,6 +24,7 @@ public class PaintTableController {
 				local = page;
 				if (local == null) {
 					page = local = new PaintTableController();
+
 				}
 			}
 		}
@@ -33,26 +40,36 @@ public class PaintTableController {
 	Table startTable = null;
 	Table resultTable = null;
 
-	private PageManager indexPage = PageManager.getInstance();
+	private PageManager indexPage;
+
 	TableDataFileManager tdfm = new TableDataFileManager();
 
 	public void openStartTable(String fPath) {
 		startTable = tdfm.readTable(fPath);
-		indexPage.paintStartPage(startTable);
+		showRedactor();
 	}
 
 	public void createResultTable() {
 	}
 
-	public void nextStage() {
-		indexPage.paintGraphResultPage(startTable);
+	public void showRedactor() {
+		indexPage.paintRedactorPage(startTable);
 	}
 
-	public void pervStage() {
-		indexPage.paintTableResultPage(startTable);
+	public void showTable() {
+		indexPage.paintTablePage(startTable);
 	}
 
-//	public void start() {
-//		indexPage.startProgram();
-//	}
+	public void showGraph() {
+		indexPage.paintGraphPage(startTable);
+	}
+
+	public void goNext() {
+		// indexPage.paintGraphPage(startTable);
+	}
+
+	public void goBack() {
+		// indexPage.paintGraphPage(startTable);
+	}
+
 }

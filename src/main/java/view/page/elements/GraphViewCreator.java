@@ -1,17 +1,16 @@
-package view.elements;
+package view.page.elements;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import view.ViewCreator;
+import view.page.ViewCreator;
 import entity.Table;
 
 public class GraphViewCreator implements ViewCreator {
 
 	@Override
-	public JComponent getView(Table table) {
+	public JPanel getView(Table table) {
 		if (table != null) {
-			JPanel graph = new GraphPanel(table);
+			JPanel graph = new GraphFrame(table);
 			paintAxis(table);
 			return graph;
 		}

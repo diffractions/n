@@ -1,4 +1,4 @@
-package view.elements;
+package view.page.elements;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,20 +7,31 @@ import javax.swing.JPanel;
 
 import entity.Table;
 
-class GraphPanel extends JPanel {
+class GraphFrame extends JPanel {
 
-	public GraphPanel(Table table) {
+	public GraphFrame(Table table) {
 		this.table = table;
+//		setBackground(Color.WHITE);
+//		setForeground(Color.WHITE);
 	}
 
 	Table table;
 	private static final long serialVersionUID = 1L;
 
-	public void paint(Graphics g) {
-		super.paint(g);
+	@Override
+//	protected void paintComponent(Graphics g) {
+//		// TODO Auto-generated method stub
+//		super.paintComponent(g);
+//	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		int maxPointSize = 10;
 		g.clearRect(1, 1, getWidth() - maxPointSize, getHeight() - maxPointSize);
 
+		g.setColor(Color.PINK);
+		g.fillRect(0, 0, getWidth(),  getHeight());
+		
 		double[][] tableToDraw = getTableToDraw(table, getWidth()
 				- maxPointSize - 1, getHeight() - maxPointSize - 1);
 
