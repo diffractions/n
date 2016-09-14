@@ -13,12 +13,8 @@ import javax.swing.JPanel;
 import controller.PaintTableController;
 import entity.Table;
 import view.page.ViewCreator;
-import view.page.elements.StartMenuPanelViewCreator;
-import view.page.elements.ExtrMenuPanelViewCreator;
-
 
 public class MenuPanel implements ViewCreator {
-
 
 	private JPanel main_panel = new JPanel();
 	private JPanel top_panel = new JPanel();
@@ -92,34 +88,14 @@ public class MenuPanel implements ViewCreator {
 
 	@Override
 	public JComponent getView(Table table) {
-		//JPanel p = new JPanel();
-		//p.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-
-		//if(table!=null && table.getProgram()==null){
-		//	p.add(new StartMenuPanelViewCreator().getView(table));
-		//}else if(table!=null && table.getProgram()!=null){
-		//	p.add(new ExtrMenuPanelViewCreator().getView(table));
-		//}
-
-
-		//p.add(main_panel);
-		//return p;
-
 
 		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(1,2));
+		p.setLayout(new GridLayout(1, 2));
 
 		JPanel p1 = new JPanel();
 		p1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-
-		if(table!=null && table.getProgram()==null){
-			p1.add(new StartMenuPanelViewCreator(b_back, b_next).getView(table));
-		}else if(table!=null && table.getProgram()!=null){
-			p1.add(new ExtrMenuPanelViewCreator().getView(table));
-		}
-
+		p1.add(PaintTableController.getInstance().getStage()
+				.getMenuViewCreator(b_back, b_next).getView(table));
 
 		JPanel p2 = new JPanel();
 		p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -127,7 +103,7 @@ public class MenuPanel implements ViewCreator {
 
 		p.add(p1);
 		p.add(p2);
-		
+
 		return p;
 	}
 

@@ -1,7 +1,5 @@
 package entity;
 
-import ga.Program;
-
 public class Table {
 
 	private double minX;
@@ -160,49 +158,4 @@ public class Table {
 		minY = (y < minY) ? y : minY;
 	}
 
-	private Program program = null;
-	public void setProgram(Program program){this.program =program;}
-	public Program getProgram(){return program;}
-
-	// public static void main(String[] args) {
-	// Table t = new Table(new String[] { "H", "J", "K" });
-	// t.addRow(new double[] { 0.5, 0.6, 0.7 });
-	// t.addRow(new double[] { 0.4, 0.3, 0.2 });
-	// t.addRow(new double[] { 0.4, 0.3, 0.9 });
-	// t.addRow(new double[] { 0.4, 0.3, 0.8 });
-	//
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	//
-	// t.delRow(0);
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	//
-	// t.delRow(1);
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	//
-	// t.delRow(1);
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	//
-	// t.updRow(0, new double[] { 0.5, 0.6, 0.7 });
-	//
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	//
-	// t.addRow(new double[] { -0.4, 0.3, 10.8 });
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	// t.addRow(new double[] { -0.4, -0.3, 10.8 });
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	// }
 }

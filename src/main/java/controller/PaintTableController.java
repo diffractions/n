@@ -1,14 +1,23 @@
 package controller;
 
 import entity.Table;
+import ga.Program;
 import service.table.TableDataFileManager;
 import service.Stage;
 import view.page.PageManager;
-import ga.Program;
 
 public class PaintTableController {
 
+	public Stage getStage() {
+		return stage;
+	}
+
+	private Stage stage = null;
+
 	private Program program = null;
+	public void setProgram(Program program){this.program =program;}
+	public Program getProgram(){return program;}
+
 	public PageManager getIndexPage() {
 		return indexPage;
 	}
@@ -49,8 +58,8 @@ public class PaintTableController {
 
 	public void openStartTable(String fPath) {
 		startTable = tdfm.readTable(fPath);
-		showRedactor();
 		stage = Stage.OPEN;
+		showRedactor();
 	}
 
 	public void createResultTable() {
@@ -69,21 +78,18 @@ public class PaintTableController {
 		indexPage.paintGraphPage(startTable);
 	}
 
-
-	private Stage stage = null;
-
 	public void goNext() {
-		if(stage==Stage.OPEN){
+		if (stage == Stage.OPEN) {
+			stage = Stage.EXTR;
 			indexPage.paintRedactorPage(startTable);
-			stage=Stage.EXTR;
 		}
 	}
 
 	public void goBack() {
-		if(stage==Stage.EXTR){
-			startTable.setProgram(null);
+		if (stage == Stage.EXTR) {
+			setProgram(null);
+			stage = Stage.OPEN;
 			indexPage.paintRedactorPage(startTable);
-			stage=Stage.OPEN;
 		}
 	}
 
