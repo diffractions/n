@@ -2,10 +2,13 @@ package controller;
 
 import entity.Table;
 import service.table.TableDataFileManager;
+import service.Stage;
 import view.page.PageManager;
+import ga.Program;
 
 public class PaintTableController {
 
+	private Program program = null;
 	public PageManager getIndexPage() {
 		return indexPage;
 	}
@@ -47,9 +50,11 @@ public class PaintTableController {
 	public void openStartTable(String fPath) {
 		startTable = tdfm.readTable(fPath);
 		showRedactor();
+		stage = Stage.OPEN;
 	}
 
 	public void createResultTable() {
+		System.out.println(111);
 	}
 
 	public void showRedactor() {
@@ -64,12 +69,22 @@ public class PaintTableController {
 		indexPage.paintGraphPage(startTable);
 	}
 
+
+	private Stage stage = null;
+
 	public void goNext() {
-		// indexPage.paintGraphPage(startTable);
+		if(stage==Stage.OPEN){
+			indexPage.paintRedactorPage(startTable);
+			stage=Stage.EXTR;
+		}
 	}
 
 	public void goBack() {
-		// indexPage.paintGraphPage(startTable);
+		if(stage==Stage.EXTR){
+			startTable.setProgram(null);
+			indexPage.paintRedactorPage(startTable);
+			stage=Stage.OPEN;
+		}
 	}
 
 }

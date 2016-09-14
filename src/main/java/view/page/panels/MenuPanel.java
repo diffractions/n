@@ -13,8 +13,12 @@ import javax.swing.JPanel;
 import controller.PaintTableController;
 import entity.Table;
 import view.page.ViewCreator;
+import view.page.elements.StartMenuPanelViewCreator;
+import view.page.elements.ExtrMenuPanelViewCreator;
+
 
 public class MenuPanel implements ViewCreator {
+
 
 	private JPanel main_panel = new JPanel();
 	private JPanel top_panel = new JPanel();
@@ -82,15 +86,48 @@ public class MenuPanel implements ViewCreator {
 		b_table.addActionListener(tableListener);
 		b_both.addActionListener(bothListener);
 
-		b_back.addActionListener(nextListener);
-		b_next.addActionListener(backListener);
+		b_back.addActionListener(backListener);
+		b_next.addActionListener(nextListener);
 	}
 
 	@Override
 	public JComponent getView(Table table) {
+		//JPanel p = new JPanel();
+		//p.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+
+		//if(table!=null && table.getProgram()==null){
+		//	p.add(new StartMenuPanelViewCreator().getView(table));
+		//}else if(table!=null && table.getProgram()!=null){
+		//	p.add(new ExtrMenuPanelViewCreator().getView(table));
+		//}
+
+
+		//p.add(main_panel);
+		//return p;
+
+
 		JPanel p = new JPanel();
-		p.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		p.add(main_panel);
+		p.setLayout(new GridLayout(1,2));
+
+		JPanel p1 = new JPanel();
+		p1.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+
+		if(table!=null && table.getProgram()==null){
+			p1.add(new StartMenuPanelViewCreator(b_back, b_next).getView(table));
+		}else if(table!=null && table.getProgram()!=null){
+			p1.add(new ExtrMenuPanelViewCreator().getView(table));
+		}
+
+
+		JPanel p2 = new JPanel();
+		p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		p2.add(main_panel);
+
+		p.add(p1);
+		p.add(p2);
+		
 		return p;
 	}
 

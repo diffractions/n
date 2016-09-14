@@ -1,5 +1,7 @@
 package entity;
 
+import ga.Program;
+
 public class Table {
 
 	private double minX;
@@ -157,6 +159,10 @@ public class Table {
 	private void updMinY(double y) {
 		minY = (y < minY) ? y : minY;
 	}
+
+	private Program program = null;
+	public void setProgram(Program program){this.program =program;}
+	public Program getProgram(){return program;}
 
 	// public static void main(String[] args) {
 	// Table t = new Table(new String[] { "H", "J", "K" });
