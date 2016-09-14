@@ -10,6 +10,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.PaintTableController;
 
@@ -21,20 +23,28 @@ public class ProgramMenuBar extends JMenuBar {
 	private JMenu m_program = new JMenu("PROGRAM");
 	private JMenuItem mi_open = new JMenuItem("Open");
 	private JMenuItem paste = m_program.add("Paste");
+	private final JFrame frame;
+
 	private ActionListener openFileListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			FileFilter filter = new FileNameExtensionFilter(".dat", "dat");
+
 			JFileChooser file = new JFileChooser();
+			file.setFileFilter(filter);
+			file.setAcceptAllFileFilterUsed(false);
 			file.setCurrentDirectory(new File("."));
-			file.showOpenDialog(new JFrame());
-			PaintTableController.getInstance().openStartTable(
-					file.getSelectedFile().getPath());
+			int result = file.showOpenDialog(frame);
+			if (result == JFileChooser.APPROVE_OPTION)
+				PaintTableController.getInstance().openStartTable(
+						file.getSelectedFile().getPath());
 
 		}
 	};
 
-	ProgramMenuBar() {
+	ProgramMenuBar(JFrame frame) {
+		this.frame = frame;
 		add(m_program);
 		mi_open.addActionListener(openFileListener);
 		mi_open.setAccelerator(KeyStroke.getKeyStroke("ctrl O"));

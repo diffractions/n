@@ -20,7 +20,7 @@ public class ProgramWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public final PageManager page;
 
-	private static final JMenuBar MB_MENU = new ProgramMenuBar();
+	private final JMenuBar MB_MENU;
 
 	@Override
 	public Component add(Component comp) {
@@ -31,6 +31,7 @@ public class ProgramWindow extends JFrame {
 	public ProgramWindow() {
 
 		page = new PageManager(getContentPane());
+		MB_MENU = new ProgramMenuBar(ProgramWindow.this);
 		PaintTableController.getInstance().setIndexPage(page);
 
 		// Toolkit kit = Toolkit.getDefaultToolkit();
