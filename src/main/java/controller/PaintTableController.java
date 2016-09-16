@@ -5,8 +5,7 @@ import entity.Table;
 import ga.Program;
 import service.table.TableDataFileManager;
 import service.Stage;
-import view.page.PageManager;
-import java.util.Arrays;
+import view.page.PageManager; 
 
 public class PaintTableController {
 
@@ -17,8 +16,14 @@ public class PaintTableController {
 	private Stage stage = null;
 
 	private Program program = null;
-	public void setProgram(Program program){this.program =program;}
-	public Program getProgram(){return program;}
+
+	public void setProgram(Program program) {
+		this.program = program;
+	}
+
+	public Program getProgram() {
+		return program;
+	}
 
 	public PageManager getIndexPage() {
 		return indexPage;
@@ -65,16 +70,12 @@ public class PaintTableController {
 	}
 
 	public void createResultTable(int i) {
-		double [][][] d = new Crossing(i).findMinExtr(startTable.getTable());
-		for(double [][] g : d)
-		{
-		for (double [] f  : g)
-		{
-		System.out.println(f[0] + "\t" + f[1]);
+		double[][] d = new Crossing(i).getExtr(startTable.getTable());
+		for (double[] g : d) {
+			System.out.println(g[0] + "\t" + g[1]);
 		}
 		System.out.println("------------");
-		}
-		//System.out.println(Arrays.deepToString(new Crossing(i).findMinExtr(startTable.getTable())));
+ 
 		System.out.println(i);
 	}
 

@@ -23,9 +23,9 @@ public class TableDataFileManager {
 		ArrayList<double[]> table = new ArrayList<>();
 
 		try (BufferedInputStream is = new BufferedInputStream(
-				new FileInputStream(filePath), 10240)) {
+				new FileInputStream(filePath), 100240)) {
 
-			byte b[] = new byte[1024];
+			byte b[] = new byte[100240];
 			int size = 0;
 			while ((size = is.read(b)) > 0) {
 				for (String xs : new String(b, 0, size).split("\n")) {
@@ -50,6 +50,10 @@ public class TableDataFileManager {
 
 			}
 
+//			for(double []d : table){
+//				System.out.println(d[0]+"\t" + d[1]);
+//			}
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -73,11 +77,5 @@ public class TableDataFileManager {
 		return rtable;
 	}
 
-	// public static void main(String[] args) {
-	// TableDataFileManager f = new TableDataFileManager();
-	// Table t = f.readTable("1.dat");
-	// System.out.println(Arrays.deepToString(t.getTable()));
-	// System.out.println(t.getMinX() + " " + t.getMaxX() + " " + t.getMinY()
-	// + " " + t.getMaxY());
-	// }
+ 
 }
