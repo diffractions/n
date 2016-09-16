@@ -1,10 +1,12 @@
 package controller;
 
+import service.Crossing;
 import entity.Table;
 import ga.Program;
 import service.table.TableDataFileManager;
 import service.Stage;
 import view.page.PageManager;
+import java.util.Arrays;
 
 public class PaintTableController {
 
@@ -62,8 +64,18 @@ public class PaintTableController {
 		showRedactor();
 	}
 
-	public void createResultTable() {
-		System.out.println(111);
+	public void createResultTable(int i) {
+		double [][][] d = new Crossing(i).findMinExtr(startTable.getTable());
+		for(double [][] g : d)
+		{
+		for (double [] f  : g)
+		{
+		System.out.println(f[0] + "\t" + f[1]);
+		}
+		System.out.println("------------");
+		}
+		//System.out.println(Arrays.deepToString(new Crossing(i).findMinExtr(startTable.getTable())));
+		System.out.println(i);
 	}
 
 	public void showRedactor() {

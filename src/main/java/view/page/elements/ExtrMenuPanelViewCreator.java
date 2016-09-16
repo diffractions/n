@@ -10,6 +10,8 @@ import view.page.ViewCreator;
 import entity.Table;
 import controller.PaintTableController;
 
+import javax.swing.*;
+
 public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 		implements ViewCreator {
 
@@ -17,17 +19,35 @@ public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 	public JPanel getView(final Table table) {
 		JPanel panel = null;
 		if (table != null) {
+
+			int count = 0;
 			panel = new JPanel();
 
-			JButton b_calcExtr = new JButton("FIND EXTR");
-			JButton b_recalculate = new JButton("APPLY CHANGES");
+			final JTextField textField  = new JTextField(4);
+			final JButton b_calcExtr = new JButton("FIND EXTR");
+			final JButton b_recalculate = new JButton("APPLY CHANGES");
+
+			b_calcExtr.setEnabled(false);
+			b_recalculate.setEnabled(false);
+
+			textField.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					b_calcExtr.setEnabled(true);
+					b_recalculate.setEnabled(true);
+				}
+			} );
+
+
+
 
 			ActionListener listener = new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					b_next.setEnabled(true);
-					PaintTableController.getInstance().createResultTable();
+					PaintTableController.getInstance().createResultTable(new Integer(textField.getText()));
 				}
 			};
 
@@ -36,6 +56,8 @@ public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 
 			panel.add(b_calcExtr);
 			panel.add(b_recalculate);
+
+			panel.add(textField);
 		}
 		return panel;
 	}
