@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import entity.Table;
-import flanagan.analysis.CurveSmooth;
+//import flanagan.analysis.CurveSmooth;
 
 public class TableDataFileManager {
 

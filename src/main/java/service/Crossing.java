@@ -3,7 +3,7 @@ package service;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import flanagan.analysis.CurveSmooth;
+//import flanagan.analysis.CurveSmooth;
 
 public class Crossing {
 	double range;
