@@ -1,11 +1,12 @@
 package controller;
 
 import service.Crossing;
+import service.Fitting;
 import entity.Table;
 import ga.Program;
 import service.table.TableDataFileManager;
 import service.Stage;
-import view.page.PageManager; 
+import view.page.PageManager;
 
 public class PaintTableController {
 
@@ -75,8 +76,18 @@ public class PaintTableController {
 			System.out.println(g[0] + "\t" + g[1]);
 		}
 		System.out.println("------------");
- 
+
 		System.out.println(i);
+	}
+
+	public void createSmothTable(int i) {
+		double[][] d = new Fitting(i).getFitt(startTable.getTable());
+
+		Table result = new Table(new String[] { "a", "b" });
+		for (double[] g : d) {
+			result.addRow(g);
+		}
+		indexPage.paintRedactorPage(result);
 	}
 
 	public void showRedactor() {

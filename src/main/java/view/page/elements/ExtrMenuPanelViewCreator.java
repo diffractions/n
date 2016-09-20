@@ -23,39 +23,47 @@ public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 			int count = 0;
 			panel = new JPanel();
 
-			final JTextField textField  = new JTextField(4);
+			final JTextField textField = new JTextField(4);
 			final JButton b_calcExtr = new JButton("FIND EXTR");
-			final JButton b_recalculate = new JButton("APPLY CHANGES");
+			final JButton b_smoth = new JButton("SMOTHING");
 
 			b_calcExtr.setEnabled(false);
-			b_recalculate.setEnabled(false);
+			b_smoth.setEnabled(false);
 
 			textField.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					b_calcExtr.setEnabled(true);
-					b_recalculate.setEnabled(true);
+					b_smoth.setEnabled(true);
 				}
-			} );
+			});
 
-
-
-
-			ActionListener listener = new ActionListener() {
+			ActionListener listener1 = new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					b_next.setEnabled(true);
-					PaintTableController.getInstance().createResultTable(new Integer(textField.getText()));
+					PaintTableController.getInstance().createResultTable(
+							new Integer(textField.getText()));
 				}
 			};
 
-			b_calcExtr.addActionListener(listener);
-			b_recalculate.addActionListener(listener);
+			ActionListener listener2 = new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					b_next.setEnabled(true);
+					PaintTableController.getInstance().createSmothTable(
+							new Integer(textField.getText()));
+				}
+			};
+
+			b_calcExtr.addActionListener(listener1);
+			b_smoth.addActionListener(listener2);
 
 			panel.add(b_calcExtr);
-			panel.add(b_recalculate);
+			panel.add(b_smoth);
 
 			panel.add(textField);
 		}

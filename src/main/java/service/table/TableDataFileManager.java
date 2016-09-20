@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import entity.Table;
+import flanagan.analysis.CurveSmooth;
 
 public class TableDataFileManager {
 
@@ -54,6 +55,8 @@ public class TableDataFileManager {
 //				System.out.println(d[0]+"\t" + d[1]);
 //			}
 			
+
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -74,6 +77,17 @@ public class TableDataFileManager {
 
 		}
 
+		
+		double[] d = new double[rtable.getTable().length];
+//		int ds = 0;
+//		for (double s[] : table) {
+//			d[ds++] = s[1];
+//		}
+//		double[] dd = new CurveSmooth(d).savitzkyGolayPlot(01);
+//		for (int i = 0; i < rtable.getTable().length; i++)
+//			System.out.println(rtable.getTable()[i][0] + "\t" + dd[i]);
+		
+		
 		return rtable;
 	}
 

@@ -3,15 +3,21 @@ package service;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import flanagan.analysis.CurveSmooth;
+
 public class Crossing {
 	double range;
 
 	public Crossing(int tyu) {
 		super();
-		this.range = (double)tyu / 100;
-//		System.out.println("range = " + this.range);
-		
+		this.range = (double) tyu / 100;
+		// System.out.println("range = " + this.range);
+
 	};
+
+	// public static void main(String[] args) {
+	//
+	// }
 
 	// public static void main(String[] args) {
 
@@ -68,8 +74,10 @@ public class Crossing {
 
 	public double[][] getExtr(double[][] table) {
 
+
+
 		Collection<Integer> extr = extr(table, null, 0, table.length - 1);
-//		System.out.println(extr);
+		// System.out.println(extr);
 		extr.add(table.length - 1);
 
 		double[][] res = new double[extr.size()][];
@@ -84,8 +92,8 @@ public class Crossing {
 			int end) {
 		Collection<Integer> res = null;
 		int extr = getExtr(table, start, end);
-//		System.out.println("extr = " + extr + " start = " + start + " end = "
-//				+ end);
+		// System.out.println("extr = " + extr + " start = " + start + " end = "
+		// + end);
 
 		if (extr != -1) {
 			res = new ArrayList<>();
@@ -118,19 +126,19 @@ public class Crossing {
 			double valI = height(table[start][0], table[start][1],
 					table[end][0], table[end][1], table[i][0], table[i][1]);
 
-//			System.out.println(start + " " + end);
-//			System.out.println(table[start][0] + " " + table[start][1] + "\n"
-//					+ table[end][0] + " " + table[end][1] + "\n" + table[i][0]
-//					+ " " + table[i][1]);
-//			System.out.println(valI);
+			// System.out.println(start + " " + end);
+			// System.out.println(table[start][0] + " " + table[start][1] + "\n"
+			// + table[end][0] + " " + table[end][1] + "\n" + table[i][0]
+			// + " " + table[i][1]);
+			// System.out.println(valI);
 
 			if (valI > range) {
-//				System.out.println();
+				// System.out.println();
 				maxVal = maxVal < valI ? valI : maxVal;
 				maxPos = maxVal == valI ? i : maxPos;
-//				System.out.println(maxVal);
-//				System.out.println(maxPos);
-//				System.out.println();
+				// System.out.println(maxVal);
+				// System.out.println(maxPos);
+				// System.out.println();
 			}
 		}
 
