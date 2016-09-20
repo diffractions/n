@@ -1,11 +1,16 @@
 package service;
 
+import java.util.Arrays;
+
 public class Fitting {
 
 	int colNumb = 1;
 
 	public static void main(String[] args) {
-		System.out.println(Math.pow(3, 2));
+		System.out.println(Arrays.deepToString(new Fitting(4)
+				.getFitt(new double[][] { new double[] { 0, 0.1 },
+						new double[] { 1, 0.4 }, new double[] { 2, 0.2 },
+						new double[] { 3, 0.4 }, new double[] { 4, 0.5 } })));
 	}
 
 	private final int ave;
@@ -20,24 +25,7 @@ public class Fitting {
 	public double[][] getFitt(double[][] table) {
 		double[][] res = new double[table.length][2];
 
-		// System.arraycopy(table, 0, ret, 0, table.length-1);
-		// for (int i = (ave * 2); i <= table.length - (ave * 2) - 1; i++) {
-		// double sum = getSum(table, i);
-		// ret[i - (ave * 2)][0] = table[i][0];
-		// ret[i - (ave * 2)][tableCol] = sum;
-		// System.out.println(sum);
-		// System.out.println();
-		// }
-
-		 for(int pos = 0; pos< ave; pos++){
-		 res[pos][0]=table[pos][0];
-		 res[pos][colNumb]=table[pos][colNumb];
-		
-		 res[res.length-pos-1][0]=table[res.length-1-pos][0];
-		 res[res.length-pos-1][colNumb]=table[res.length-1-pos][colNumb];
-		 }
-
-		for (int pos = ave; pos < res.length-ave; pos++) {
+		for (int pos = 0; pos < res.length; pos++) {
 			res[pos][0] = table[pos][0];
 			res[pos][colNumb] = getSum(table, pos);
 
@@ -48,33 +36,44 @@ public class Fitting {
 
 	private double getSum(double[][] table, int pos) {
 		double sum = 0;
-//		int mult = 1;
-//		System.out.println("+++++++++");
+		int count = (1 + (ave * 2));
 
-//		System.out.println("pos = " + pos);
-		for (int i = 1; i <= ave; i++) {
-			sum += table[pos - i][colNumb]  ;
-//			sum += table[pos - i][colNumb] * mult;
-//			System.out.println("pos-i = " + (pos - i));
-//			System.out.println("pos + i = " + (pos + i));
-			sum += table[pos + i][colNumb]  ;
-//			sum += table[pos + i][colNumb] * mult++;
+		// System.out.print("pos = " + pos);
+		if ((table.length - ave) <= pos && pos - ave >= 0) {
 
+			for (int i = pos - ave; i < table.length; i++) {
+				sum += table[i][colNumb];
+			}
+			count = 1 + (table.length - pos) + ave;
+			// System.out.println("; n = 3, sum " + sum + "; count = " + count);
+
+		} else if (pos < ave && pos + ave < table.length) {
+
+			for (int i = 0; i < pos + ave; i++) {
+				sum += table[i][colNumb];
+			}
+			count = 1 + (pos + ave);
+
+			// System.out.println("; n = 1, sum " + sum + "; count = " + count);
+		} else if (pos >= ave && (table.length - ave) > pos) {
+
+			for (int i = 1; i <= ave; i++) {
+				sum += table[pos - i][colNumb];
+				sum += table[pos + i][colNumb];
+			}
+			// System.out.println("; n = 2, sum " + sum + "; count = " + count);
+		} else {
+			count = table.length + 1;
+
+			for (int i = 0; i < table.length; i++) {
+				sum += table[i][colNumb];
+			}
+
+			System.out.println("; n = 4, sum " + sum + "; count = " + count);
 		}
-//		if (ave == 1) {
-//			System.out.println(1);
-			sum += (table[pos][colNumb]);
-//		} else {
 
-//			System.out.println(0);
-//			sum += (table[pos][colNumb]  );
-//		}
-
-//		System.out.println("sum = " + sum);
-
-
-//		System.out.println("------------");
-		return (sum /(1+(ave*2)));
+		sum += (table[pos][colNumb]);
+		return (sum / count);
 	}
 
 }
