@@ -2,6 +2,7 @@ package controller;
 
 import service.Crossing;
 import service.Fitting;
+import service.Spline;
 import entity.Table;
 import ga.Program;
 import service.table.TableDataFileManager;
@@ -54,14 +55,13 @@ public class PaintTableController {
 
 	public static final String RESULT_TABLE_NAME = "ResultTable";
 	public static final String START_TABLE_NAME = "StartTable";
-	//public static final String[] TAMPLETE_HEADERS = new String[] { "X", "Y", "Smoth", "Max", "Min" };
 	public static final String[] TAMPLETE_HEADERS = new String[] { "X", "Y" };
-	//public static final String[] RESULT_HEADERS = new String[] { "A", "B", "C",
-	//		"D", "E" };
+	public static final String[] RESULT_HEADERS = new String[] { "X", "Y",
+			"Min", "Max" };
 
 	private Table startTable = null;
 	private Table tampleteTable = null;
-	//private Table resultTable = null;
+	private Table resultTable = null;
 	private Table lastTable = null;
 
 	private PageManager indexPage;
@@ -69,11 +69,11 @@ public class PaintTableController {
 	TableDataFileManager tdfm = new TableDataFileManager();
 
 	public void openStartTable(String fPath) {
-		  startTable = null;
-		  tampleteTable = null;
-		//  resultTable = null;
+		startTable = null;
+		tampleteTable = null;
+		resultTable = null;
 		startTable = tdfm.readTable(fPath);
-		fillTamplTable(startTable,0);
+		fillTamplTable(startTable, 0);
 		lastTable = startTable;
 		stage = Stage.OPEN;
 		showRedactor();
@@ -81,38 +81,13 @@ public class PaintTableController {
 
 	private void fillTamplTable(Table table, int colNumb) {
 		if (colNumb == 0) {
-			tampleteTable = new Table(TAMPLETE_HEADERS);
-			for(double[] row : table.getTable()){
-				double[] addRow = new double [tampleteTable.getCollCount()];
-				addRow[0] = row[0];
-				addRow[1] = row[1];
- 				tampleteTable.addRow(addRow);
-			}
-			
+			tampleteTable = new Table(table.getTable(), TAMPLETE_HEADERS);
 		}
-		
 	}
 
 	public void createExtrTable(int i) {
-		//System.out.println(2);
-
-		//Table tableToFoundExtr = tampleteTable == null ? startTable
-		//		: tampleteTable;
-
-		//System.out.println(startTable != null ? startTable.getTable() : null);
-		//System.out.println(tampleteTable != null ? tampleteTable.getTable()
-		//	: null);
-
-		//double[][] d = new Crossing(i).getExtr(startTable.getTable()); 
-
-		//resultTable = new Table(TAMPLETE_HEADERS);
-		
-		/*for (double[] g : d) { 
-			resultTable.addRow(g);
-		} */
-
-
-		if(!tampleteTable.hasColl("Smoth")) addSmoth(0);
+		if (!tampleteTable.hasCollByName("Smoth"))
+			addSmoth(0);
 		addExtr(i);
 		indexPage.paintRedactorPage(tampleteTable);
 	}
@@ -122,14 +97,33 @@ public class PaintTableController {
 		indexPage.paintRedactorPage(tampleteTable);
 	}
 
-	private void addExtr(int i){
-	 	double[][] extr = new Crossing(i).getExtr(tampleteTable.getTable(), 2); 
-		//tampleteTable.addCol(extr,"Extr");
+	private void addExtr(int i) {
+		int[] extrs = new Crossing(i).getExtr(tampleteTable.getTable(), 2);
+		int[][] extr = new Crossing(i).separateExtr(extrs,
+				tampleteTable.getTable().length);
+
+		double[] res1 = new Spline().getSpline(tampleteTable.getTable(),
+				extr[0], 2);
+		double[] res2 = new Spline().getSpline(tampleteTable.getTable(),
+				extr[1], 2);
+
+		tampleteTable.addCol(res1, "Extr1");
+		tampleteTable.addCol(res2, "Extr2");
+
+		resultTable = new Table(RESULT_HEADERS);
+		for (int pos : extrs) {
+			resultTable.addRow(new double[] { 
+					tampleteTable.getTable()[pos][0],
+					tampleteTable.getTable()[pos][1],
+					tampleteTable.getTable()[pos][3],
+					tampleteTable.getTable()[pos][4] });
+		}
+
 	}
 
-	private void addSmoth(int i){
-	 	double[] fitt = new Fitting(i).getFitt(startTable.getTable());
-		tampleteTable.addCol(fitt,"Smoth");
+	private void addSmoth(int i) {
+		double[] fitt = new Fitting(i).getFitt(startTable.getTable());
+		tampleteTable.addCol(fitt, "Smoth");
 	}
 
 	public void showRedactor() {
@@ -144,16 +138,15 @@ public class PaintTableController {
 		indexPage.paintGraphPage(lastTable);
 	}
 
-
 	public void goNext() {
 		if (stage == Stage.OPEN) {
 			stage = Stage.EXTR;
-			lastTable =startTable; 
-			indexPage.paintRedactorPage(startTable);
+			lastTable = tampleteTable;
+			indexPage.paintRedactorPage(tampleteTable);
 		} else if (stage == Stage.EXTR) {
 			stage = Stage.RESULT;
-			//lastTable =resultTable; 
-			//indexPage.paintRedactorPage(resultTable);
+			lastTable = resultTable;
+			indexPage.paintRedactorPage(resultTable);
 		}
 	}
 
@@ -161,12 +154,13 @@ public class PaintTableController {
 		if (stage == Stage.EXTR) {
 			setProgram(null);
 			stage = Stage.OPEN;
-			lastTable =startTable; 
+			lastTable = startTable;
 			indexPage.paintRedactorPage(startTable);
-		} else if (stage == Stage.RESULT){
+		} else if (stage == Stage.RESULT) {
 			stage = Stage.EXTR;
-			lastTable = startTable; 
-			indexPage.paintRedactorPage(startTable);
+			fillTamplTable(startTable, 0);
+			lastTable = tampleteTable;
+			indexPage.paintRedactorPage(tampleteTable);
 		}
 
 	}

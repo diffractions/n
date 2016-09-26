@@ -2,8 +2,8 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-//import flanagan.analysis.CurveSmooth;
+import java.util.Collections;
+import java.util.List;
 
 public class Crossing {
 	double range;
@@ -11,47 +11,8 @@ public class Crossing {
 	public Crossing(int tyu) {
 		super();
 		this.range = (double) tyu / 100;
-		// System.out.println("range = " + this.range);
 
 	};
-
-	// public static void main(String[] args) {
-	//
-	// }
-
-	// public static void main(String[] args) {
-
-	// int p1x = 0;
-	// int p1y = 0;
-	// int p2x = 3;
-	// int p2y = 0;
-
-	// int p3x = 2;
-	// int p3y = 1;
-
-	// System.out.println(new Crossing(1)
-	// .getMark(p1x, p1y, p2x, p2y, p3x, p3y));
-	// int p4x = 0;
-	// int p4y = 3;
-
-	// System.out.println(new Crossing().crossing(p1x, p1y, p2x, p2y, p3x,
-	// p3y, p4x, p4y));
-	// System.out.println(new Crossing().crossing(0.3, 0.05, 0.6, 0.1, 0.5,
-	// 0.15, 0.4, 0.1));
-
-	// double[][] d = new double[][] { new double[] { 0.0, 0.0 },
-	// new double[] { 0.1, 0.05 }, new double[] { 0.2, 0.1 },
-	// new double[] { 0.3, 0.05 }, new double[] { 0.4, 0.1 },
-	// new double[] { 0.5, 0.15 }, new double[] { 0.6, 0.1 } };
-
-	// System.out.println(Arrays.deepToString(new Crossing(0).getExtr(d)));
-	// System.out.println(Arrays.deepToString(new
-	// Crossing().findMinExtr(d)));
-
-	// System.out.println(new Crossing().height(p1x, p1y, p2x, p2y, p3x,
-	// p3y));
-
-	// }
 
 	private double height(double p1x, double p1y, double p2x, double p2y,
 			double p3x, double p3y) {
@@ -74,8 +35,6 @@ public class Crossing {
 
 	public double[][] getExtr(double[][] table) {
 
-
-
 		Collection<Integer> extr = extr(table, null, 0, table.length - 1, 1);
 		// System.out.println(extr);
 		extr.add(table.length - 1);
@@ -86,44 +45,58 @@ public class Crossing {
 			res[p++] = table[i];
 		}
 		return res;
+		
+		
 	}
-	public double[][] getExtr(double[][] table, int coll) {
+	
+	public  int[][] separateExtr(int[] extrs, int   length) {
+		int[][] extr = new int[2][((extrs.length + 1) / 2)];
 
+		int p = 0;
+		int n = 0;
+		for (int t : extrs) {
+			if (0 == n) {
+				n = 1;
+				extr[0][p] = t;
+			} else if (1 == n) {
+				n = 0;
+				extr[1][p++] = t;
+			}
+		}
 
+//		System.out.println(extr);
+//		System.out.println(Arrays.deepToString(res));
 
-		Collection<Integer> extr = extr(table, null, 0, table.length - 1, coll);
-		// System.out.println(extr);
+		if (extr[1][extr[1].length-1] == 0){
+//			if (((extr.size() + 1) / 2) >= 4){
+//				
+//				double a = (table[res[1][res[1].length-2]][coll]-table[res[1][res[1].length-3]][coll])/(table[res[1][res[1].length-2]][0]-table[res[1][res[1].length-3]][0]);
+//				double b = table[res[1][res[1].length-2]][coll]-(a*table[res[1][res[1].length-2]][0]);
+//				
+//			}
+//			else
+//		
+			extr[1][extr[1].length-1] = length - 1;
+		}
+		return extr;
+	}
+
+	public int[] getExtr(double[][] table, int coll) {
+		List<Integer> extr = extr(table, null, 0, table.length - 1, coll);
 		extr.add(table.length - 1);
-
-		double[][] res = new double[extr.size()][];
+		Collections.sort(extr);
+		int[] res = new int[extr.size()];
 		int p = 0;
 		for (int i : extr) {
-			res[p++] = table[i];
+			res[p++] = i;
 		}
+
 		return res;
 	}
 
-
-/*
-	public double[] getExtr(double[][] table, int pos) {
-
-
-
-		Collection<Integer> extr = extr(table, null, 0, table.length - 1);
-		// System.out.println(extr);
-		extr.add(table.length - 1);
-
-		double[] res = new double[extr.size()];
-		int p = 0;
-		for (int i : extr) {
-			res[p++] = table[i][pos];
-		}
-		return res;
-	}
-*/
-	private Collection<Integer> extr(double[][] table, Boolean mark, int start,
+	private List<Integer> extr(double[][] table, Boolean mark, int start,
 			int end, int coll) {
-		Collection<Integer> res = null;
+		List<Integer> res = null;
 		int extr = getExtr(table, start, end, coll);
 		// System.out.println("extr = " + extr + " start = " + start + " end = "
 		// + end);
@@ -132,13 +105,14 @@ public class Crossing {
 			res = new ArrayList<>();
 			if (mark == null) {
 				res.add(0);
-				mark = getMark(table[start][0], table[start][coll], table[end][0],
-						table[end][coll], table[extr][0], table[extr][coll]);
+				mark = getMark(table[start][0], table[start][coll],
+						table[end][0], table[end][coll], table[extr][0],
+						table[extr][coll]);
 			}
 
 			res.add(extr);
 
-			Collection<Integer> res1 = extr(table, !mark, start, extr,coll);
+			Collection<Integer> res1 = extr(table, !mark, start, extr, coll);
 			if (res1 != null)
 				res.addAll(res1);
 
@@ -157,7 +131,8 @@ public class Crossing {
 
 		for (int i = start + 1; i < end; i++) {
 			double valI = height(table[start][0], table[start][coll],
-					table[end][0], table[end][coll], table[i][0], table[i][coll]);
+					table[end][0], table[end][coll], table[i][0],
+					table[i][coll]);
 
 			// System.out.println(start + " " + end);
 			// System.out.println(table[start][0] + " " + table[start][1] + "\n"

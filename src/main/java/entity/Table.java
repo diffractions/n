@@ -13,10 +13,29 @@ public class Table {
 	private double[][] table;
 
 	public Table(String[] heders) {
+		for (String s : heders)
+			if (s == null || s.equals(""))
+				throw new NullPointerException("wrong coll");
+
 		this.heders = heders;
 		this.colCount = heders.length;
 		this.table = new double[1][colCount];
 		setNullExtr();
+	}
+
+	public Table(double[][] table, String[] heders) {
+		this(heders);
+		if (getRowCount() == 0 || getRowCount() == table.length) {
+			for (double[] row : table) {
+				double[] addRow = new double[table.length];
+				for (int i = 0; i < getCollCount(); i++) {
+					addRow[i] = row[i];
+				}
+				addRow(addRow);
+			}
+			return;
+		}
+		throw new NullPointerException("wrong coll");
 	}
 
 	public String[] getHeaders() {
@@ -41,75 +60,66 @@ public class Table {
 		return tables;
 	}
 
+	public void updCol(double[] col, int colls) {
 
-	public void updCol (double [] col, int  colls){
-
-		//System.out.println(colls);
-
-		for (int pos = 0; pos< col.length; pos++) {	
-			table[pos][colls]=col[pos];
+		for (int pos = 0; pos < col.length; pos++) {
+			table[pos][colls] = col[pos];
 		}
-	} 
-
-	public boolean hasColl(String collName){
-		for(int colls = 0;colls< getCollCount();colls++){
-			if(heders[colls].equalsIgnoreCase(collName)) return true;
-		}
-		return false;
 	}
 
+	public boolean hasCollByName(String collName) {
+		return getCollPosByName(collName) != -1;
+	}
 
-	public int posColl(String collName){
+	private int getCollPosByName(String collName) {
 		int colls = 0;
-		for(;colls< getCollCount();colls++){
-			if(heders[colls].equalsIgnoreCase(collName)) return colls;
+		for (; colls < getCollCount(); colls++) {
+			if (heders[colls].equalsIgnoreCase(collName))
+				return colls;
 		}
-		return colls;
+		return -1;
 	}
 
-
-	public void updCol (double [] col, String collName){
-		if(col.length!=getRowCount() || collName == null || collName.equals("")) throw new NullPointerException("wrong coll" );
-		
-		
-		
-		if(hasColl(collName)){
-			updCol(col, posColl(collName));
-			return;
-		}
-		
-
-		
-
-	} 
-
-	public void addCol (double [] col, String collName){
-		//System.out.println(col.length);
-		//System.out.println(getRowCount);
-		if(col.length!=getRowCount() || collName == null || collName.equals("")) throw new NullPointerException("wrong coll" );
-		
-		if(hasColl(collName)){
-			updCol(col, posColl(collName));
+	public void updCol(double[] col, String collName) {
+		if (col.length != getRowCount() || collName == null
+				|| collName.equals(""))
+			throw new NullPointerException("wrong coll");
+		int colls = -1;
+		if ((colls = getCollPosByName(collName)) != -1) {
+			updCol(col, colls);
 			return;
 		}
 
-		String [] head = new String[getCollCount()+1];
-		for(int i = 0; i< getCollCount();i++)
-		head[i] = heders[i];
+	}
+
+	public void addCol(double[] col, String collName) {
+		if (col.length != getRowCount() || collName == null
+				|| collName.equals(""))
+			throw new NullPointerException("wrong coll");
+
+		int colls = -1;
+		if ((colls = getCollPosByName(collName)) != -1) {
+			updCol(col, colls);
+			return;
+		}
+
+		String[] head = new String[getCollCount() + 1];
+		for (int i = 0; i < getCollCount(); i++)
+			head[i] = heders[i];
 		head[getCollCount()] = collName;
-		
+
 		this.heders = head;
 		this.colCount = heders.length;
-		
-		for (int pos = 0; pos< col.length; pos++) {
-			double[] addRow = new double [getCollCount()];
-			for(int poss = 0; poss<getCollCount()-1; poss++){
+
+		for (int pos = 0; pos < col.length; pos++) {
+			double[] addRow = new double[getCollCount()];
+			for (int poss = 0; poss < getCollCount() - 1; poss++) {
 				addRow[poss] = getTable()[pos][poss];
- 			}
-			addRow[getCollCount()-1] = col[pos];
- 			updRow(pos,addRow);
+			}
+			addRow[getCollCount() - 1] = col[pos];
+			updRow(pos, addRow);
 		}
-	} 
+	}
 
 	public void addRow(double[] row) {
 
@@ -152,13 +162,13 @@ public class Table {
 
 	public void updRow(int pos, double[] row) {
 
-		if (pos < rowCount){
+		if (pos < rowCount) {
 			double[] d = new double[colCount];
-			for(int i = 0; i< colCount; i++)
-				d[i]=row[i];
-			table[pos]=d;
+			for (int i = 0; i < colCount; i++)
+				d[i] = row[i];
+			table[pos] = d;
 		}
-		//	System.arraycopy(row, 0, table[pos], 0, colCount);
+		// System.arraycopy(row, 0, table[pos], 0, colCount);
 		else
 			throw new IndexOutOfBoundsException();
 
