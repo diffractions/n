@@ -76,7 +76,22 @@ public class Crossing {
 
 
 
-		Collection<Integer> extr = extr(table, null, 0, table.length - 1);
+		Collection<Integer> extr = extr(table, null, 0, table.length - 1, 1);
+		// System.out.println(extr);
+		extr.add(table.length - 1);
+
+		double[][] res = new double[extr.size()][];
+		int p = 0;
+		for (int i : extr) {
+			res[p++] = table[i];
+		}
+		return res;
+	}
+	public double[][] getExtr(double[][] table, int coll) {
+
+
+
+		Collection<Integer> extr = extr(table, null, 0, table.length - 1, coll);
 		// System.out.println(extr);
 		extr.add(table.length - 1);
 
@@ -88,10 +103,28 @@ public class Crossing {
 		return res;
 	}
 
+
+/*
+	public double[] getExtr(double[][] table, int pos) {
+
+
+
+		Collection<Integer> extr = extr(table, null, 0, table.length - 1);
+		// System.out.println(extr);
+		extr.add(table.length - 1);
+
+		double[] res = new double[extr.size()];
+		int p = 0;
+		for (int i : extr) {
+			res[p++] = table[i][pos];
+		}
+		return res;
+	}
+*/
 	private Collection<Integer> extr(double[][] table, Boolean mark, int start,
-			int end) {
+			int end, int coll) {
 		Collection<Integer> res = null;
-		int extr = getExtr(table, start, end);
+		int extr = getExtr(table, start, end, coll);
 		// System.out.println("extr = " + extr + " start = " + start + " end = "
 		// + end);
 
@@ -99,17 +132,17 @@ public class Crossing {
 			res = new ArrayList<>();
 			if (mark == null) {
 				res.add(0);
-				mark = getMark(table[start][0], table[start][1], table[end][0],
-						table[end][1], table[extr][0], table[extr][1]);
+				mark = getMark(table[start][0], table[start][coll], table[end][0],
+						table[end][coll], table[extr][0], table[extr][coll]);
 			}
 
 			res.add(extr);
 
-			Collection<Integer> res1 = extr(table, !mark, start, extr);
+			Collection<Integer> res1 = extr(table, !mark, start, extr,coll);
 			if (res1 != null)
 				res.addAll(res1);
 
-			Collection<Integer> res2 = extr(table, !mark, extr, end);
+			Collection<Integer> res2 = extr(table, !mark, extr, end, coll);
 			if (res2 != null)
 				res.addAll(res2);
 
@@ -118,13 +151,13 @@ public class Crossing {
 		return res;
 	}
 
-	private int getExtr(double[][] table, int start, int end) {
+	private int getExtr(double[][] table, int start, int end, int coll) {
 		int maxPos = -1;
 		double maxVal = 0;
 
 		for (int i = start + 1; i < end; i++) {
-			double valI = height(table[start][0], table[start][1],
-					table[end][0], table[end][1], table[i][0], table[i][1]);
+			double valI = height(table[start][0], table[start][coll],
+					table[end][0], table[end][coll], table[i][0], table[i][coll]);
 
 			// System.out.println(start + " " + end);
 			// System.out.println(table[start][0] + " " + table[start][1] + "\n"
