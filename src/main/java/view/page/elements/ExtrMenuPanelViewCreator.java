@@ -19,8 +19,7 @@ public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 	public JPanel getView(final Table table) {
 		JPanel panel = null;
 		if (table != null) {
-
-			int count = 0;
+ 
 			panel = new JPanel();
 
 			final JTextField textField = new JTextField(4);
@@ -44,7 +43,7 @@ public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					b_next.setEnabled(true);
-					PaintTableController.getInstance().createResultTable(
+					PaintTableController.getInstance().createExtrTable(
 							new Integer(textField.getText()));
 				}
 			};

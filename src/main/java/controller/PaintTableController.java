@@ -54,10 +54,12 @@ public class PaintTableController {
 
 	public static final String RESULT_TABLE_NAME = "ResultTable";
 	public static final String START_TABLE_NAME = "StartTable";
+	public static final String[] TAMPLETE_HEADERS = new String[] { "A", "B" };
 	public static final String[] RESULT_HEADERS = new String[] { "A", "B", "C",
 			"D", "E" };
 
 	Table startTable = null;
+	Table tampleteTable = null;
 	Table resultTable = null;
 
 	private PageManager indexPage;
@@ -65,29 +67,47 @@ public class PaintTableController {
 	TableDataFileManager tdfm = new TableDataFileManager();
 
 	public void openStartTable(String fPath) {
+		  startTable = null;
+		  tampleteTable = null;
+		  resultTable = null;
 		startTable = tdfm.readTable(fPath);
 		stage = Stage.OPEN;
 		showRedactor();
 	}
 
-	public void createResultTable(int i) {
-		double[][] d = new Crossing(i).getExtr(startTable.getTable());
-		for (double[] g : d) {
-			System.out.println(g[0] + "\t" + g[1]);
+	public void createResultTable(Table table) {
+		if (tampleteTable == null) {
+			tampleteTable = table;
 		}
-		System.out.println("------------");
+	}
 
-		System.out.println(i);
+	public void createExtrTable(int i) {
+		System.out.println(2);
+
+		Table tableToFoundExtr = tampleteTable == null ? startTable
+				: tampleteTable;
+
+		System.out.println(startTable != null ? startTable.getTable() : null);
+		System.out.println(tampleteTable != null ? tampleteTable.getTable()
+				: null);
+
+		double[][] d = new Crossing(i).getExtr(tableToFoundExtr.getTable()); 
+
+		resultTable = new Table(TAMPLETE_HEADERS);
+		for (double[] g : d) { 
+			resultTable.addRow(g);
+		} 
 	}
 
 	public void createSmothTable(int i) {
+		System.out.println(1);
 		double[][] d = new Fitting(i).getFitt(startTable.getTable());
 
-		Table result = new Table(new String[] { "a", "b" });
+		tampleteTable = new Table(TAMPLETE_HEADERS);
 		for (double[] g : d) {
-			result.addRow(g);
+			tampleteTable.addRow(g);
 		}
-		indexPage.paintRedactorPage(result);
+		indexPage.paintRedactorPage(tampleteTable);
 	}
 
 	public void showRedactor() {
@@ -106,6 +126,9 @@ public class PaintTableController {
 		if (stage == Stage.OPEN) {
 			stage = Stage.EXTR;
 			indexPage.paintRedactorPage(startTable);
+		} else if (stage == Stage.EXTR) {
+			stage = Stage.RESULT;
+			indexPage.paintRedactorPage(resultTable);
 		}
 	}
 
@@ -115,6 +138,7 @@ public class PaintTableController {
 			stage = Stage.OPEN;
 			indexPage.paintRedactorPage(startTable);
 		}
+
 	}
 
 }

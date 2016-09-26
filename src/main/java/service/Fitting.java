@@ -69,7 +69,7 @@ public class Fitting {
 				sum += table[i][colNumb];
 			}
 
-			System.out.println("; n = 4, sum " + sum + "; count = " + count);
+			// System.out.println("; n = 4, sum " + sum + "; count = " + count);
 		}
 
 		sum += (table[pos][colNumb]);

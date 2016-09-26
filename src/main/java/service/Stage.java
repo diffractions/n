@@ -4,10 +4,11 @@ import javax.swing.JButton;
 
 import view.page.elements.AbstractMenuPanelViewCreator;
 import view.page.elements.ExtrMenuPanelViewCreator;
+import view.page.elements.ResultMenuPanelViewCreator;
 import view.page.elements.StartMenuPanelViewCreator;
 
 public enum Stage {
-	OPEN(new StartMenuPanelViewCreator()), EXTR(new ExtrMenuPanelViewCreator());
+	OPEN(new StartMenuPanelViewCreator()), EXTR(new ExtrMenuPanelViewCreator()), RESULT(new ResultMenuPanelViewCreator());
 
 	private final AbstractMenuPanelViewCreator id;
 

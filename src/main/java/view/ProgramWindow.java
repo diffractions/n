@@ -62,6 +62,7 @@ public class ProgramWindow extends JFrame {
 				setLocationByPlatform(true);
 				pack();
 				setVisible(true);
+				
 
 			}
 		});
@@ -72,7 +73,7 @@ public class ProgramWindow extends JFrame {
 		return preferredSize;
 	}
 
-	public static void main(String[] args) {
+	public static final  void main(String[] args)throws Exception  {
 		new ProgramWindow();
 	}
 }
