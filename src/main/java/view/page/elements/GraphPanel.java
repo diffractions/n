@@ -7,42 +7,53 @@ import javax.swing.JPanel;
 
 import entity.Table;
 
-class GraphFrame extends JPanel {
+class GraphPanel extends JPanel {
 
-	public GraphFrame(Table table) {
+	public void setPosition( int xy, int yy) {
+		System.out.println(yy+ " " + xy);
+		this.xy = xy;
+		this.yy = yy;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	int xy = 0;
+	int yy = 0;
+
+	public GraphPanel(Table table) {
 		this.table = table;
-//		setBackground(Color.WHITE);
-//		setForeground(Color.WHITE);
+		// setBackground(Color.WHITE);
+		// setForeground(Color.WHITE);
 	}
 
 	Table table;
 	private static final long serialVersionUID = 1L;
 
 	@Override
-//	protected void paintComponent(Graphics g) {
-//		// TODO Auto-generated method stub
-//		super.paintComponent(g);
-//	}
-	
 	public void paintComponent(Graphics g) {
+		// System.out.println(getWidth()+"  " + getHeight());
 		super.paintComponent(g);
 		int maxPointSize = 10;
-		g.clearRect(1, 1, getWidth() - maxPointSize, getHeight() - maxPointSize);
+		
+//		xy = xy+(10/2);
+		g.clearRect(1+xy, 1+yy- (maxPointSize/2), getWidth() - maxPointSize+xy+(maxPointSize/2), getHeight() - maxPointSize+yy+(maxPointSize));
 
 		g.setColor(Color.PINK);
-		g.fillRect(0, 0, getWidth(),  getHeight());
-		
+		g.fillRect(0+xy , 0+yy- (maxPointSize/2), getWidth()+xy+(maxPointSize/2) , getHeight()+xy+(maxPointSize) );
+
 		double[][] tableToDraw = getTableToDraw(table, getWidth()
-				- maxPointSize - 1, getHeight() - maxPointSize - 1);
+				- maxPointSize-(maxPointSize/2), getHeight() - maxPointSize );
 
 		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
 			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
 
 				g.setColor(Color.BLUE);
-
-				g.drawOval((int) tableToDraw[rowNumber][0],
-						(int) tableToDraw[rowNumber][collNumber], maxPointSize,
-						maxPointSize);
+ 
+				g.drawOval((xy + (int) tableToDraw[rowNumber][0]), (yy
+						+ (int) tableToDraw[rowNumber][collNumber]),
+						maxPointSize, maxPointSize);
 
 			}
 		}

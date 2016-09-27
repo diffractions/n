@@ -10,7 +10,7 @@ public class GraphViewCreator implements ViewCreator {
 	@Override
 	public JPanel getView(Table table) {
 		if (table != null) {
-			JPanel graph = new GraphFrame(table);
+			JPanel graph = new GraphPanel(table);
 			paintAxis(table);
 			return graph;
 		}
