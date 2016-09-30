@@ -35,8 +35,14 @@ public class GraphTopPanel1 extends JPanel {
 			double ymin =  panel2.getTable().getMinY()<panel1.getTable().getMinY()?panel2.getTable().getMinY():panel1.getTable().getMinY();
 			double ymax =  panel2.getTable().getMaxY()>panel1.getTable().getMaxY()?panel2.getTable().getMaxY():panel1.getTable().getMaxY();
 
-			 int y = getSize().height;
-			 int x = getSize().width;
+
+		int maxPointSize = 10;
+
+
+		double poitR = maxPointSize/2;
+
+			 int y = getSize().height-maxPointSize-1;
+			 int x = getSize().width-maxPointSize-1;
 
 
 			 System.out.println("x = " + x);
@@ -61,9 +67,6 @@ public class GraphTopPanel1 extends JPanel {
 			 System.out.println(panel1x + " " + panel1y);
 			 System.out.println(panel2x + " " + panel2y);
 
-			 System.out.println(panel2x + " " + panel2y);
-			 System.out.println(panel2x + " " + panel2y);
-
 			 System.out.println("dif x panel1  " + (panel1.getTable().getMinX()-xmin));
 			 System.out.println("dif y panel1  " + (panel1.getTable().getMinY()-ymin));
 			 System.out.println("dif x panel2  " + (panel2.getTable().getMinX()-xmin));
@@ -73,8 +76,8 @@ public class GraphTopPanel1 extends JPanel {
 			 System.out.println("panel 1 position = "  + (((double)(panel1.getTable().getMinX()-xmin))*xMultiply) + ", " + ((panel1.getTable().getMinY()-ymin)*yMultiply));
 			 System.out.println("panel 2 position = "  + (((double)(panel2.getTable().getMinX()-xmin))*xMultiply) + ", " + ((panel2.getTable().getMinY()-ymin)*yMultiply));
 
-			Dimension panel1position = new Dimension( (int) ((panel1.getTable().getMinX()-xmin)*xMultiply), (int) ((panel1.getTable().getMinY()-ymin)*yMultiply));
-			Dimension panel2position = new Dimension( (int) ((panel2.getTable().getMinX()-xmin)*xMultiply), (int) ((panel2.getTable().getMinY()-ymin)*yMultiply));
+			Dimension panel1position = new Dimension( (int) Math.ceil(((panel1.getTable().getMinX()-xmin)*xMultiply)+poitR), (int) (Math.ceil((panel1.getTable().getMinY()-ymin)*yMultiply)+poitR));
+			Dimension panel2position = new Dimension( (int) Math.ceil(((panel2.getTable().getMinX()-xmin)*xMultiply)+poitR), (int) (Math.ceil((panel2.getTable().getMinY()-ymin)*yMultiply)+poitR));
 
 			Dimension panel1Size = new Dimension( (int) (x * panel1x), (int) (y * panel1y ));
 			Dimension panel2Size = new Dimension( (int) (x * panel2x), (int) (y * panel2y ));
@@ -86,6 +89,9 @@ public class GraphTopPanel1 extends JPanel {
 			panel1.setSize(panel1Size);
 			panel2.setSize(panel2Size);
 
+			//panel1.setPosition( (((panel1.getTable().getMinX()-xmin)*xMultiply)+poitR), (((panel1.getTable().getMinY()-ymin)*yMultiply)+poitR));
+			//panel2.setPosition( (((panel2.getTable().getMinX()-xmin)*xMultiply)+poitR), (((panel2.getTable().getMinY()-ymin)*yMultiply)+poitR));
+			
 			panel1.setPosition(panel1position);
 			panel2.setPosition(panel2position);
 			
@@ -162,11 +168,11 @@ public class GraphTopPanel1 extends JPanel {
 		JFrame f = new JFrame();
 		f.setTitle("Test");
 
-		Dimension size = new Dimension(700, 700);
+		Dimension size = new Dimension(300, 600);
 		f.setSize(size);
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Table table1 = new Table(new double[][] { 
+	/*	Table table1 = new Table(new double[][] { 
 				new double[] { 0,	 1,		1.5 },
 				new double[] { 0.5,	 1.5,	2 },
 				new double[] { 1,	 2,		2.5},
@@ -178,7 +184,7 @@ public class GraphTopPanel1 extends JPanel {
 				new double[] { 1, 2 },
 				new double[] { 0, 2.5 }
 				}, new String[] { "Hello", "Bye" });
-/*
+*/
 
 		Table table1 = new Table(new double[][] { 
 				new double[] { 0, 0},
@@ -189,7 +195,7 @@ public class GraphTopPanel1 extends JPanel {
 				new double[] { 1, 1 },
 				new double[] { 4, 4 }
 				}, new String[] { "Hello", "Bye" });
-*/
+
 		GraphPanel g1 = new GraphPanel(table1); 
 		GraphPanel g2 = new GraphPanel(table2); 
 

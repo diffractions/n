@@ -10,7 +10,7 @@ import entity.Table;
 
 class GraphPanel extends JPanel {
 
-	public void setPosition( int xy, int yy) {
+	public void setPosition( double xy, double yy) {
 		System.out.println("position = " + yy+ " " + xy);
 		this.xy = xy;
 		this.yy = yy;
@@ -18,15 +18,15 @@ class GraphPanel extends JPanel {
 
 
 	public void setPosition( Dimension position) {
-		setPosition((int)position.getWidth(), (int)position.getHeight());
+		setPosition(position.getWidth(), position.getHeight());
 	}
 	
 	public Table getTable() {
 		return table;
 	}
 
-	int xy = 0;
-	int yy = 0;
+	double xy = 0;
+	double yy = 0;
 
 	public GraphPanel(Table table) {
 		this.table = table;
@@ -43,6 +43,9 @@ class GraphPanel extends JPanel {
 		//System.out.println(getWidth()+"  " + getHeight());
 		//super.paintComponent(g);
 		int maxPointSize = 10;
+
+
+		double poitR = maxPointSize/2;
 		
 
 		//g.clearRect(1+xy, 1+yy, getWidth() - maxPointSize+xy, getHeight() - maxPointSize+yy);
@@ -50,16 +53,16 @@ class GraphPanel extends JPanel {
 		//g.setColor(Color.PINK);
 		//g.fillRect(0+xy , 0+yy, getWidth()+xy , getHeight()+xy);
 
-		double[][] tableToDraw = getTableToDraw(table, getWidth()
-				- maxPointSize-1, getHeight() - maxPointSize -1);
+ 		//double[][] tableToDraw = getTableToDraw(table, getWidth() - maxPointSize - 1, getHeight() - maxPointSize - 1);
+		double[][] tableToDraw = getTableToDraw(table, getWidth(), getHeight());
 
 		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
 			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
 
 				//g.setColor(Color.BLUE);
  
-				g.drawOval((xy + (int) tableToDraw[rowNumber][0]), (yy
-						+ (int) tableToDraw[rowNumber][collNumber]),
+				g.drawOval((int) Math.round(xy - poitR +  tableToDraw[rowNumber][0]), (int) Math.round(yy - poitR 
+						+ tableToDraw[rowNumber][collNumber]),
 						maxPointSize, maxPointSize);
 
 			}
