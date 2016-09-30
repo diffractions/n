@@ -11,7 +11,7 @@ import entity.Table;
 class GraphPanel extends JPanel {
 
 	public void setPosition( double xy, double yy) {
-		System.out.println("position = " + yy+ " " + xy);
+		//System.out.println("position = " + yy+ " " + xy);
 		this.xy = xy;
 		this.yy = yy;
 	}
