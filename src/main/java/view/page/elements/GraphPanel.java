@@ -19,8 +19,8 @@ class GraphPanel extends JPanel {
 		return table;
 	}
 
-	int xy = 0;
-	int yy = 0;
+	int xy = 10;
+	int yy = 10;
 
 	public GraphPanel(Table table) {
 		this.table = table;
@@ -44,7 +44,7 @@ class GraphPanel extends JPanel {
 		g.fillRect(0+xy , 0+yy, getWidth()+xy , getHeight()+xy);
 
 		double[][] tableToDraw = getTableToDraw(table, getWidth()
-				- maxPointSize, getHeight() - maxPointSize );
+				- maxPointSize-1, getHeight() - maxPointSize -1);
 
 		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
 			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
