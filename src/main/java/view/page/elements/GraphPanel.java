@@ -37,14 +37,14 @@ class GraphPanel extends JPanel {
 		super.paintComponent(g);
 		int maxPointSize = 10;
 		
-//		xy = xy+(10/2);
-		g.clearRect(1+xy, 1+yy- (maxPointSize/2), getWidth() - maxPointSize+xy+(maxPointSize/2), getHeight() - maxPointSize+yy+(maxPointSize));
+
+		g.clearRect(1+xy, 1+yy, getWidth() - maxPointSize+xy, getHeight() - maxPointSize+yy);
 
 		g.setColor(Color.PINK);
-		g.fillRect(0+xy , 0+yy- (maxPointSize/2), getWidth()+xy+(maxPointSize/2) , getHeight()+xy+(maxPointSize) );
+		g.fillRect(0+xy , 0+yy, getWidth()+xy , getHeight()+xy);
 
 		double[][] tableToDraw = getTableToDraw(table, getWidth()
-				- maxPointSize-(maxPointSize/2), getHeight() - maxPointSize );
+				- maxPointSize, getHeight() - maxPointSize );
 
 		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
 			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
