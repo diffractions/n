@@ -243,4 +243,10 @@ public class Table {
 		minY = (y < minY) ? y : minY;
 	}
 
+	public double [] getRow(int row) {
+		double [] ret = new double[getCollCount()];
+		System.arraycopy(table[row], 0, ret, 0, getCollCount());
+		return ret;
+	}
+
 }
