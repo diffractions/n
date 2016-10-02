@@ -49,10 +49,10 @@ public class RedactorPanel extends AbstractPageViewCreator implements
 				new String[] { "Hello", "Bye", "Bye" });
 		ModifyTable table2 = new TwoColTable(new double[][] {
 				new double[] { 2, 1.5 }, new double[] { 1, 2 },
-				new double[] { 0, 2.5 } }, new String[] { "Hello", "Byet" });
+				new double[] { 0, 2.5 } }, new String[] { "Hello", "Bye" });
 		ModifyTable table3 = new TwoColTable(new double[][] {
 				new double[] { 0, 0 }, new double[] { 3, 1 }, }, new String[] {
-				"Hello", "Byes" });
+				"Hello", "Bye" });
 
 		RedactorPanel p = new RedactorPanel();
 		f.add(p.getView(table1, table2, table3));

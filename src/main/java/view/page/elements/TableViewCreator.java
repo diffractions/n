@@ -1,8 +1,8 @@
 package view.page.elements;
 
-import java.awt.Color; 
+import java.awt.Color;
 
-import javax.swing.JComponent; 
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -12,7 +12,7 @@ import javax.swing.table.TableCellRenderer;
 import view.page.ViewCreator;
 import view.page.elements.graph.GraphTopPnaelMouseListener;
 import entity.Table;
-import entity.ModifyTable; 
+import entity.ModifyTable;
 
 public class TableViewCreator implements ViewCreator {
 
@@ -50,38 +50,24 @@ public class TableViewCreator implements ViewCreator {
 
 	}
 
-//	private DefaultTableModel getJTableModel(Table table) {
-//		DefaultTableModel models = new DefaultTableModel();
-//		for (String collName : table.getHeaders())
-//			models.addColumn(collName);
-//		for (double[] s : table.getTable()) {
-//			Double d[] = new Double[s.length];
-//			for (int i = 0; i < s.length; i++)
-//				d[i] = s[i];
-//			models.addRow(d);
-//		}
-//		return models;
-//	}
-
-
 	private DefaultTableModel getJTableModel(Table table, ModifyTable... tables) {
 		DefaultTableModel models = new DefaultTableModel();
 
 		this.tableCopy = table;
 		this.tablesCopy = tables;
 
+		int rows = table.getRowCount();
+
 		for (String collName : table.getHeaders()) {
 			models.addColumn(collName);
-
 		}
-
-		int rows = table.getRowCount();
 
 		for (ModifyTable tab : tables) {
 
 			rows += tab.getRowCount();
+
 			for (String collName : tab.getHeaders()) {
-				if (hasColl(table, collName))
+				if (!hasColl(models, collName))
 					models.addColumn(collName);
 			}
 		}
@@ -110,12 +96,6 @@ public class TableViewCreator implements ViewCreator {
 		return models;
 	}
 
-//	@Override
-//	public JScrollPane getView(Table table) {
-//		this.tablest.setModel(getJTableModel(table));
-//		return view;
-//	}
-
 	@Override
 	public JScrollPane getView(Table table, ModifyTable... tables) {
 
@@ -138,11 +118,11 @@ public class TableViewCreator implements ViewCreator {
 		return view;
 	}
 
-	private boolean hasColl(Table table, String collName) {
-		for (String collNameH : table.getHeaders()) {
-			if (collNameH.equals(collName)) {
-				return false;
-			} else {
+	private boolean hasColl(DefaultTableModel models, String collName) {
+
+		for (int i = 0; i < models.getColumnCount(); i++) {
+
+			if (models.getColumnName(i).equals(collName)) {
 				return true;
 			}
 		}
