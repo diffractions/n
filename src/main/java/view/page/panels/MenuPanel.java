@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import controller.PaintTableController;
 import entity.Table;
+import entity.ModifyTable;
 import view.page.ViewCreator;
 
 public class MenuPanel implements ViewCreator {
@@ -87,7 +88,7 @@ public class MenuPanel implements ViewCreator {
 	}
 
 	@Override
-	public JComponent getView(Table table) {
+	public JComponent getView(Table table, ModifyTable... tables) {
 
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(1, 2));

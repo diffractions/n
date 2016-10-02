@@ -3,7 +3,7 @@ package controller;
 import service.Crossing;
 import service.Fitting;
 import service.Spline;
-import entity.Table;
+import entity.SimpleTable;
 import ga.Program;
 import service.table.TableDataFileManager;
 import service.Stage;
@@ -59,10 +59,10 @@ public class PaintTableController {
 	public static final String[] RESULT_HEADERS = new String[] { "X", "Y",
 			"Min", "Max" };
 
-	private Table startTable = null;
-	private Table tampleteTable = null;
-	private Table resultTable = null;
-	private Table lastTable = null;
+	private SimpleTable startTable = null;
+	private SimpleTable tampleteTable = null;
+	private SimpleTable resultTable = null;
+	private SimpleTable lastTable = null;
 
 	private PageManager indexPage;
 
@@ -79,9 +79,9 @@ public class PaintTableController {
 		showRedactor();
 	}
 
-	private void fillTamplTable(Table table, int colNumb) {
+	private void fillTamplTable(SimpleTable table, int colNumb) {
 		if (colNumb == 0) {
-			tampleteTable = new Table(table.getTable(), TAMPLETE_HEADERS);
+			tampleteTable = new SimpleTable(table.getTable(), TAMPLETE_HEADERS);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class PaintTableController {
 		if (!tampleteTable.hasCollByName("Smoth"))
 			addSmoth(0);
 		addExtr(i);
-		indexPage.paintRedactorPage(tampleteTable);
+//		indexPage.paintRedactorPage(tampleteTable);
 	}
 
 	public void createSmothTable(int i) {
@@ -110,14 +110,23 @@ public class PaintTableController {
 		tampleteTable.addCol(res1, "Extr1");
 		tampleteTable.addCol(res2, "Extr2");
 
-		resultTable = new Table(RESULT_HEADERS);
+		resultTable = new SimpleTable(RESULT_HEADERS);
+
+		SimpleTable modExtr1 = new SimpleTable(new String[]{"x", "Extr1"});
+		SimpleTable modExtr2 = new SimpleTable(new String[]{"x", "Extr1"});
+		
 		for (int pos : extrs) {
+			modExtr1.addRow(new double[]{tampleteTable.getTable()[pos][0],tampleteTable.getTable()[pos][3]});
+			modExtr2.addRow(new double[]{tampleteTable.getTable()[pos][0],tampleteTable.getTable()[pos][4]});
 			resultTable.addRow(new double[] { 
 					tampleteTable.getTable()[pos][0],
 					tampleteTable.getTable()[pos][1],
 					tampleteTable.getTable()[pos][3],
 					tampleteTable.getTable()[pos][4] });
 		}
+
+		indexPage.paintRedactorPage(tampleteTable);
+//		indexPage.paintMultiRedactorPage(tampleteTable, modExtr1, modExtr2);
 
 	}
 

@@ -12,13 +12,14 @@ import java.awt.event.ActionListener;
 
 import view.page.ViewCreator;
 import entity.Table;
+import entity.ModifyTable; 
 import ga.Program;
 
 public class StartMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 		implements ViewCreator {
 
 	@Override
-	public JPanel getView(final Table table) {
+	public JPanel getView(final Table table, ModifyTable... tables) {
 		JPanel panel = new JPanel();
 		final JRadioButton transmittance = new JRadioButton("Transmittance",
 				false);

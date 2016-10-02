@@ -8,6 +8,7 @@ import view.page.AbstractPageViewCreator;
 import view.page.ViewCreator;
 import view.page.elements.TableViewCreator;
 import entity.Table;
+import entity.ModifyTable; 
 
 public class TablePanel extends AbstractPageViewCreator implements ViewCreator {
 
@@ -19,8 +20,8 @@ public class TablePanel extends AbstractPageViewCreator implements ViewCreator {
 	}
 
 	@Override
-	public void fillComponent(Table table) {
+	public void fillComponent(Table table, ModifyTable... tables) {
 		pageToView.setLayout(new GridLayout(1, 1));
-		pageToView.add(this.table.getView(table));
+		pageToView.add(this.table.getView( table,  tables));
 	}
 }

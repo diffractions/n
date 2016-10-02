@@ -61,8 +61,7 @@ public class ProgramWindow extends JFrame {
 				setTitle(PROGRAM_NAME);
 				setLocationByPlatform(true);
 				pack();
-				setVisible(true);
-				
+				setVisible(true); 
 
 			}
 		});

@@ -6,20 +6,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import entity.Table;
+import entity.SimpleTable;
 //import flanagan.analysis.CurveSmooth;
 
 public class TableDataFileManager {
 
 	// +writeTable(:Table)
 
-	public Table readTable(File file) {
+	public SimpleTable readTable(File file) {
 		return readTable(file.getPath());
 	}
 
-	public Table readTable(String filePath) {
+	public SimpleTable readTable(String filePath) {
 
-		Table rtable = null;
+		SimpleTable rtable = null;
 
 		ArrayList<double[]> table = new ArrayList<>();
 
@@ -69,7 +69,7 @@ public class TableDataFileManager {
 			for (int i = 0; i < colNames.length; i++) {
 				colNames[i] = new String(new char[] { (char) (65 + i) });
 			}
-			rtable = new Table(colNames);
+			rtable = new SimpleTable(colNames);
 
 			for (double[] r : table) {
 				rtable.addRow(r);

@@ -7,7 +7,7 @@ import view.page.panels.GraphPanel;
 import view.page.panels.MenuPanel;
 import view.page.panels.RedactorPanel;
 import view.page.panels.TablePanel;
-import entity.Table;
+import entity.SimpleTable;
 
 public class PageManager {
 
@@ -27,36 +27,25 @@ public class PageManager {
 
 	}
 
-	public void paintTablePage(Table table) {
+	public void paintTablePage(SimpleTable table) {
 		paint(table, tablePage);
 
 	}
 
-	public void paintRedactorPage(Table table) {
+	public void paintRedactorPage(SimpleTable table) {
 		paint(table, redactorPage);
 	}
+	
 
-	public void paintGraphPage(Table table) {
+	public void paintGraphPage(SimpleTable table) {
 		paint(table, graphPage);
 	}
 
-	private void paint(Table table, ViewCreator viev) {
+	private void paint(SimpleTable table, ViewCreator viev) {
 		cont.removeAll();
 		cont.add(viev.getView(table));
 		cont.add(menuElement.getView(table), BorderLayout.SOUTH);
 		cont.revalidate();
 	}
 
-	// public static PageManager getInstance() {
-	// PageManager local = page;
-	// if (local == null) {
-	// synchronized (PageManager.class) {
-	// local = page;
-	// if (local == null) {
-	// page = local = new PageManager();
-	// }
-	// }
-	// }
-	// return page;
-	// }
 }

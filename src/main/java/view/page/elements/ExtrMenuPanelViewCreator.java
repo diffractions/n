@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import view.page.ViewCreator;
 import entity.Table;
+import entity.ModifyTable; 
 import controller.PaintTableController;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class ExtrMenuPanelViewCreator extends AbstractMenuPanelViewCreator
 		implements ViewCreator {
 
 	@Override
-	public JPanel getView(final Table table) {
+	public JPanel getView(final Table table, ModifyTable... tables) {
 		JPanel panel = null;
 		if (table != null) {
 
