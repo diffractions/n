@@ -122,7 +122,7 @@ public class TableViewCreator implements ViewCreator {
 
 		for (int i = 0; i < models.getColumnCount(); i++) {
 
-			if (models.getColumnName(i).equals(collName)) {
+			if (models.getColumnName(i).equalsIgnoreCase(collName)) {
 				return true;
 			}
 		}

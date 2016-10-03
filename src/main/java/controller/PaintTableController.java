@@ -3,7 +3,9 @@ package controller;
 import service.Crossing;
 import service.Fitting;
 import service.Spline;
+import entity.ModifyTable;
 import entity.SimpleTable;
+import entity.TwoColTable;
 import ga.Program;
 import service.table.TableDataFileManager;
 import service.Stage;
@@ -112,8 +114,8 @@ public class PaintTableController {
 
 		resultTable = new SimpleTable(RESULT_HEADERS);
 
-		SimpleTable modExtr1 = new SimpleTable(new String[]{"x", "Extr1"});
-		SimpleTable modExtr2 = new SimpleTable(new String[]{"x", "Extr1"});
+		ModifyTable modExtr1 = new TwoColTable(new String[]{"x", "Extr1"});
+		ModifyTable modExtr2 = new TwoColTable(new String[]{"x", "Extr2"});
 		
 		for (int pos : extrs) {
 			modExtr1.addRow(new double[]{tampleteTable.getTable()[pos][0],tampleteTable.getTable()[pos][3]});
@@ -125,8 +127,8 @@ public class PaintTableController {
 					tampleteTable.getTable()[pos][4] });
 		}
 
-		indexPage.paintRedactorPage(tampleteTable);
-//		indexPage.paintMultiRedactorPage(tampleteTable, modExtr1, modExtr2);
+//		indexPage.paintRedactorPage(tampleteTable);
+		indexPage.paintRedactorPage(tampleteTable, modExtr1, modExtr2);
 
 	}
 
