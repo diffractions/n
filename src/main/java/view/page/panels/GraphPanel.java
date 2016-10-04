@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 
 import entity.Table;
 import entity.ModifyTable;
-import view.page.AbstractPageViewCreator;
 import view.page.ViewCreator;
 import view.page.elements.GraphViewCreator;
+import view.page.elements.menu.AbstractPageViewCreator;
 
 public class GraphPanel extends AbstractPageViewCreator implements ViewCreator {
 

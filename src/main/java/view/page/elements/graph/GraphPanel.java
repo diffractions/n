@@ -3,10 +3,9 @@ package view.page.elements.graph;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import entity.Table; 
+import entity.Table;
 
 public interface GraphPanel {
-
 
 	public void drawPoint(Graphics g, double[][] tableToDraw, int collNumber,
 			int rowNumber);
@@ -26,6 +25,8 @@ public interface GraphPanel {
 	public void setXmin(double xmin);
 
 	public void setYmin(double ymin);
-	
+
 	public GraphLineView getLineView();
+
+	public void paintOld(Graphics g);
 }

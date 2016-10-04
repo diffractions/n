@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Arrays;
+
 import service.Crossing;
 import service.Fitting;
 import service.Spline;
@@ -70,6 +72,10 @@ public class PaintTableController {
 
 	TableDataFileManager tdfm = new TableDataFileManager();
 
+	private TwoColTable modExtr1;
+
+	private TwoColTable modExtr2;
+
 	public void openStartTable(String fPath) {
 		startTable = null;
 		tampleteTable = null;
@@ -114,8 +120,8 @@ public class PaintTableController {
 
 		resultTable = new SimpleTable(RESULT_HEADERS);
 
-		ModifyTable modExtr1 = new TwoColTable(new String[]{"x", "Extr1"});
-		ModifyTable modExtr2 = new TwoColTable(new String[]{"x", "Extr2"});
+		 modExtr1 = new TwoColTable(new String[]{"x", "Extr1"});
+		 modExtr2 = new TwoColTable(new String[]{"x", "Extr2"});
 		
 		for (int pos : extrs) {
 			modExtr1.addRow(new double[]{tampleteTable.getTable()[pos][0],tampleteTable.getTable()[pos][3]});
@@ -130,6 +136,10 @@ public class PaintTableController {
 //		indexPage.paintRedactorPage(tampleteTable);
 		indexPage.paintRedactorPage(tampleteTable, modExtr1, modExtr2);
 
+
+//		System.out.println(Arrays.deepToString(modExtr1.getTable()));
+//		System.out.println(Arrays.deepToString(modExtr2.getTable()));
+		
 	}
 
 	private void addSmoth(int i) {
@@ -155,6 +165,8 @@ public class PaintTableController {
 			lastTable = tampleteTable;
 			indexPage.paintRedactorPage(tampleteTable);
 		} else if (stage == Stage.EXTR) {
+//			System.out.println(Arrays.deepToString(modExtr1.getTable()));
+//			System.out.println(Arrays.deepToString(modExtr2.getTable()));
 			stage = Stage.RESULT;
 			lastTable = resultTable;
 			indexPage.paintRedactorPage(resultTable);

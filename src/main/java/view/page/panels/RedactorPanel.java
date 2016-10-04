@@ -6,10 +6,10 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import view.page.AbstractPageViewCreator;
 import view.page.ViewCreator;
 import view.page.elements.GraphViewCreator;
 import view.page.elements.TableViewCreator;
+import view.page.elements.menu.AbstractPageViewCreator;
 import entity.Table;
 import entity.ModifyTable;
 import entity.SimpleTable;

@@ -3,9 +3,9 @@ package service;
 import javax.swing.JButton;
 
 import view.page.elements.AbstractMenuPanelViewCreator;
-import view.page.elements.ExtrMenuPanelViewCreator;
-import view.page.elements.ResultMenuPanelViewCreator;
-import view.page.elements.StartMenuPanelViewCreator;
+import view.page.elements.menu.ExtrMenuPanelViewCreator;
+import view.page.elements.menu.ResultMenuPanelViewCreator;
+import view.page.elements.menu.StartMenuPanelViewCreator;
 
 public enum Stage {
 	OPEN(new StartMenuPanelViewCreator()), EXTR(new ExtrMenuPanelViewCreator()), RESULT(new ResultMenuPanelViewCreator());

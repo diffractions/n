@@ -1,4 +1,4 @@
-package view.page.elements;
+package view.page.elements.menu;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.page.ViewCreator;
+import view.page.elements.AbstractMenuPanelViewCreator;
 import entity.Table;
 import entity.ModifyTable; 
 import controller.PaintTableController;

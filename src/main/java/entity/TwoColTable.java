@@ -42,7 +42,7 @@ public class TwoColTable extends SimpleTable implements ModifyTable {
 
 	public void addRow(double[] row) {
 
-		System.out.println(Arrays.toString(row));
+//		System.out.println(Arrays.toString(row));
 		if (row.length == 2)
 			super.addRow(row);
 		else

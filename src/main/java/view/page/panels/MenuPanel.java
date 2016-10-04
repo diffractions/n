@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import controller.PaintTableController;
 import entity.Table;
 import entity.ModifyTable;
 import view.page.ViewCreator;
+import view.page.elements.menu.GraphStyleViewCreator;
 
 public class MenuPanel implements ViewCreator {
 
@@ -93,16 +95,33 @@ public class MenuPanel implements ViewCreator {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(1, 2));
 
-		JPanel p1 = new JPanel();
-		p1.setLayout(new FlowLayout(FlowLayout.LEFT));
-		p1.add(PaintTableController.getInstance().getStage()
-				.getMenuViewCreator(b_back, b_next).getView(table));
+//		JPanel p1 = new JPanel();
+//		p1.setLayout(new FlowLayout(FlowLayout.LEFT));
+//		p1.add(PaintTableController.getInstance().getStage()
+//				.getMenuViewCreator(b_back, b_next).getView(table));
 
 		JPanel p2 = new JPanel();
 		p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		p2.add(main_panel);
 
-		p.add(p1);
+		
+JPanel p0 = new JPanel();
+p0.setLayout(new GridLayout(2,1));
+		
+		
+		JPanel p1 = new JPanel();
+		p1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		p1.add(PaintTableController.getInstance().getStage()
+				.getMenuViewCreator(b_back, b_next).getView(table));
+		
+
+p0.add(p1);
+p0.add(new GraphStyleViewCreator().getView(table, tables));
+ 
+p.add(p0);
+
+
+//		p.add(p1);
 		p.add(p2);
 
 		return p;

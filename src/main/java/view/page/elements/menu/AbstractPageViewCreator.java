@@ -1,7 +1,8 @@
-package view.page;
+package view.page.elements.menu;
 
 import javax.swing.JComponent;
 
+import view.page.ViewCreator;
 import entity.Table;
 import entity.ModifyTable; 
 

@@ -4,9 +4,9 @@ import java.awt.event.MouseEvent;
 
 public interface ModifyGraphPanel extends GraphPanel {
 
-	//public void repaint();
-
 	public void movePoint(int pos, int newX, int newY);
 
 	public int searchPoint(MouseEvent e);
+
+	public void repaint();
 }

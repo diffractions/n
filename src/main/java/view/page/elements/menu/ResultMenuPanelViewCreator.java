@@ -1,10 +1,11 @@
-package view.page.elements;
+package view.page.elements.menu;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import view.page.ViewCreator;
+import view.page.elements.AbstractMenuPanelViewCreator;
 import entity.Table;
 import entity.ModifyTable; 
 

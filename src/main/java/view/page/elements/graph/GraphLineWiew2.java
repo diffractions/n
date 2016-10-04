@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 import entity.Table; 
 
-public class GraphLineWiew1 implements GraphLineView {
+public class GraphLineWiew2 implements GraphLineView {
 
 	private ArrayList<Double> diameter = null;
 
 	
 	
-	public GraphLineWiew1(Table table) {
+	public GraphLineWiew2(Table table) {
 
 		diameter = new ArrayList<>();
 
 		for (int i = 0; i < table.getCollCount(); i++) {
 			// System.out.println("i = " + i);
-			diameter.add((double) 10);
+			diameter.add((double) 15);
 		}
 //		System.out.println("C = " + diameter);
 	}
@@ -36,7 +36,7 @@ public class GraphLineWiew1 implements GraphLineView {
 
 	@Override
 	public void paintPoint(Graphics g, int col) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.RED);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class GraphLineWiew1 implements GraphLineView {
 
 	@Override
 	public void setDiameter(int col, double diameter) {
-		this.diameter.set(col, diameter);
+		// TODO Auto-generated method stub
 		
 	}
 }
