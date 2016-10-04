@@ -63,4 +63,9 @@ public class GraphLineWiew1 implements GraphLineView {
 		}
 
 	}
+
+	@Override
+	public int getDropPoint(){
+		return 1;
+	}
 }

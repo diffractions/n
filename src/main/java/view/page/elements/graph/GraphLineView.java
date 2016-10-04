@@ -14,4 +14,6 @@ public interface GraphLineView {
 	public void paintPoint(Graphics g, int col);
 
 	public void update(Table key);
+
+	public int getDropPoint();
 }

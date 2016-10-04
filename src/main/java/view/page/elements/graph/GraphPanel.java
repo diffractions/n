@@ -7,6 +7,7 @@ import entity.Table;
 
 public interface GraphPanel {
 
+
 	public void drawPoint(Graphics g, double[][] tableToDraw, int collNumber,
 			int rowNumber);
 

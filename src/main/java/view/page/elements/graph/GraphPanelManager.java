@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import entity.Table;
 import entity.ModifyTable;
 import entity.SimpleTable; 
+import entity.TwoColTable; 
    
 
 public class GraphPanelManager extends JPanel {
@@ -33,8 +34,24 @@ public class GraphPanelManager extends JPanel {
 	private double maxPoitRadius;
 	
 	
+/*	@Override
+        public void repaint() {
+//		System.out.println("repaint");
+//		System.out.println(rootPanel);
+//		System.out.println(topPanels);
 
+		
+
+		if(topPanels!=null){
+			System.out.println("repaint");
+			for(ModifyGraphPanel panel : topPanels)
+				panel.repaint();
+		}else
+			super.repaint();
+	}
+*/
 	public GraphPanelManager(Table table1, ModifyTable ... tables) {
+
 		this.rootPanel = new RootGraphPanel(table1);
 		this.topPanels = new TopGraphPanel [tables.length];
  
@@ -77,6 +94,9 @@ public class GraphPanelManager extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+System.out.println("repaint");
+System.out.println(rootPanel);
+System.out.println(topPanels);
 		super.paintComponent(g); 
 		
 
@@ -142,15 +162,15 @@ public class GraphPanelManager extends JPanel {
 				new double[] { 1, 	2, 		2.5 },
 				new double[] { 1.5, 2.5, 	3 } }, new String[] { "Hello", "Bye",
 				"Bye" });
-//		Table table2 = new Table(new double[][] { new double[] { 2, 1.5 },
-//				new double[] { 1, 2 }, new double[] { 0, 2.5 } }, new String[] {
-//				"Hello", "Bye" });
-//		Table table3 = new Table(new double[][] { new double[] { 0, 0 },
-//				new double[] { 3, 1 }, }, new String[] { "Hello", "Bye" });
+		ModifyTable table2 = new TwoColTable(new double[][] { new double[] { 2, 1.5 },
+				new double[] { 1, 2 }, new double[] { 0, 2.5 } }, new String[] {
+				"Hello", "Bye" });
+		ModifyTable table3 = new TwoColTable(new double[][] { new double[] { 0, 0 },
+				new double[] { 3, 1 }, }, new String[] { "Hello", "Bye" });
 
  
 		
-		f.add(new GraphPanelManager(table1/*,table2,table3*/)); 
+		f.add(new GraphPanelManager(table1,table2,table3)); 
 		f.setVisible(true);
 	}
 }

@@ -43,10 +43,15 @@ public class RootGraphPanel extends JPanel implements GraphPanel {
 
 	};
 
+
+
+
 	public RootGraphPanel(Table table) {
+
 		tableLineView.put(table, new GraphLineWiew1(table));
 		this.table = table;
 	}
+
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -56,7 +61,8 @@ public class RootGraphPanel extends JPanel implements GraphPanel {
 
 		double[][] tableToDraw = getTableToDraw(table);
 		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
-			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber++) {
+			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber+=tableLineView.get(this.table).getDropPoint()) {
+			//for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber+=getIO()) {
 				drawPoint(g, tableToDraw, collNumber, rowNumber);
 
 			}
