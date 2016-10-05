@@ -66,9 +66,16 @@ public class GraphLineWiew2 implements GraphLineView {
 
 	}
 
+	int droppPoint = 1;
+
 	@Override
 	public int getDropPoint(){
-		return 1;
+		return droppPoint;
+	}
+
+	@Override
+	public void setDropPoint(int i){
+		 droppPoint = i;
 	}
 
 	@Override
@@ -76,4 +83,8 @@ public class GraphLineWiew2 implements GraphLineView {
 		// TODO Auto-generated method stub
 		
 	}
+	boolean update = true;
+	public boolean getUpdate (){return update;};
+	public void setUpdate (boolean update){this.update =update;};
+
 }

@@ -16,6 +16,12 @@ public interface GraphLineView {
 	public void update(Table key);
 
 	public int getDropPoint();
+
+	public void setDropPoint(int i);
 	
 	public void setDiameter(int col, double diameter);
+
+	public boolean getUpdate ();
+
+	public void setUpdate (boolean update);
 }

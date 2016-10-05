@@ -9,11 +9,14 @@ import entity.ModifyTable;
 
 public class GraphViewCreator implements ViewCreator {
  
+//private GraphPanelManager graph = null;
 	@Override
 	public JPanel getView(Table table, ModifyTable ... tables) {
 		if (table != null) { 
-			JPanel graph = new GraphPanelManager(table, tables); 
-			return graph;
+			//if(graph==null)
+			//graph = new GraphPanelManager(); 
+
+			return new GraphPanelManager(table, tables);
 		}
 		return null;
 	}

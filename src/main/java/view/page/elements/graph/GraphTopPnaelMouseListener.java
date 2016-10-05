@@ -57,9 +57,14 @@ public class GraphTopPnaelMouseListener extends MouseAdapter {
 			int x = e.getX();
 			int y = e.getY();
 			panel.movePoint(point, x, y);
-			for (Component com : tables.get(table))
-				com.repaint();
+			repaint();
 		}
+	}
+
+
+	public void repaint(){
+		for (Component com : tables.get(table))
+		com.repaint();
 	}
 
 	public void mousePressed(MouseEvent e) {

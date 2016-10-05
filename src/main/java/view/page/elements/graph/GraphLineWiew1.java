@@ -66,9 +66,17 @@ public class GraphLineWiew1 implements GraphLineView {
 
 	}
 
+
+	int droppPoint = 1;
+
 	@Override
 	public int getDropPoint(){
-		return 1;
+		return droppPoint;
+	}
+
+	@Override
+	public void setDropPoint(int i){
+		 droppPoint = i;
 	}
 
 	@Override
@@ -76,4 +84,8 @@ public class GraphLineWiew1 implements GraphLineView {
 		this.diameter.set(col, diameter);
 		
 	}
+
+	boolean update = true;
+	public boolean getUpdate (){return update;};
+	public void setUpdate (boolean update){this.update =update;};
 }

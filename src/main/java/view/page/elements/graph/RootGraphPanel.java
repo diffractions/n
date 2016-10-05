@@ -161,7 +161,20 @@ public class RootGraphPanel extends JPanel implements GraphPanel {
 	@Override
 	public void paintOld(Graphics g) {
 
+	/*	LinkedList<Ellipse2D> list = points.get(collNumber);
+
+		list.clear() ;
+		
+		list.add( new Ellipse2D.Double(Math.round(xPosition
+				- getLineView().getMaxRadius() + tableToDraw[rowNumber][0]),
+				Math.round(yPosition - getLineView().getMaxRadius()
+						+ tableToDraw[rowNumber][collNumber]), getLineView()
+						.getDiameter(collNumber), getLineView().getDiameter(
+						collNumber)));
+*/
+
 		Graphics2D g2 = (Graphics2D) g;
+	//	System.out.println(points);
 		for (int i = 1; i <= points.size(); i++){
 //			System.out.println(i);
 			for (Ellipse2D e : points.get(i)) {
