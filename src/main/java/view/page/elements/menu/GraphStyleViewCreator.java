@@ -4,11 +4,7 @@ package view.page.elements.menu;
 import javax.swing.JComboBox;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
+import java.awt.Color; 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -20,8 +16,8 @@ import view.page.elements.graph.GraphRootPnaelUpdater;
 
 public class GraphStyleViewCreator implements ViewCreator {
 
-  final JComboBox combobox1 = new JComboBox(new String[]{"0","1","2","3","4","5","6","7","8","9","10"}); // Create the combo box
-  final JComboBox combobox2 = new JComboBox(new String[]{"0","1","2","3","4","5","6","7","8","9","10"}); // Create the combo box
+  final JComboBox<?> combobox1 = new JComboBox<>(new String[]{"0","1","2","3","4","5","6","7","8","9","10"});  
+  final JComboBox<?> combobox2 = new JComboBox<>(new String[]{"0","1","2","3","4","5","6","7","8","9","10"});  
  // final GraphRootPnaelUpdater ml1 = null;
 
 	@Override

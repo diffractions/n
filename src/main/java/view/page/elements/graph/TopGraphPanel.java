@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 import view.page.PageManager;
+import view.page.elements.elementview.GraphLineWiew2;
 import entity.Table;
 
 public class TopGraphPanel extends RootGraphPanel implements ModifyGraphPanel {

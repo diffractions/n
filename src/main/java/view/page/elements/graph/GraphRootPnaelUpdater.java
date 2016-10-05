@@ -1,15 +1,13 @@
 package view.page.elements.graph;
 
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import entity.Table;
 
-public class GraphRootPnaelUpdater  {
+public class GraphRootPnaelUpdater {
 
 	private LinkedList<Component> hed;
 
@@ -19,8 +17,7 @@ public class GraphRootPnaelUpdater  {
 
 		private static final long serialVersionUID = 1L;
 
-		public LinkedList<Component> put(Table key,
-				LinkedList<Component> value) {
+		public LinkedList<Component> put(Table key, LinkedList<Component> value) {
 			if (get(key) != null)
 				return get(key);
 			return super.put(key, value);
@@ -41,17 +38,13 @@ public class GraphRootPnaelUpdater  {
 
 	}
 
-
 	public void addComponent(Component comp) {
-		// System.out.println(table + " " + comp);
 		this.hed.add(comp);
 	}
 
-
-	public void repaint(){
+	public void repaint() {
 		for (Component com : tables.get(table))
-		com.repaint();
+			com.repaint();
 	}
-
 
 }

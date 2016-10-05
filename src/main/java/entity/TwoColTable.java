@@ -1,6 +1,5 @@
 package entity;
-
-import java.util.Arrays;
+ 
 
 public class TwoColTable extends SimpleTable implements ModifyTable {
 

@@ -3,6 +3,7 @@ package view.page.elements.graph;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import view.page.elements.elementview.GraphLineView;
 import entity.Table;
 
 public interface GraphPanel {

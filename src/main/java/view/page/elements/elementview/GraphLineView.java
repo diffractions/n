@@ -1,12 +1,11 @@
-package view.page.elements.graph;
+package view.page.elements.elementview;
 
 import java.awt.Graphics;
 
-import entity.Table; 
+import entity.Table;
 
-public interface GraphLineView {
-	
-	
+public interface GraphLineView{
+
 	public double getMaxRadius();
 
 	public double getDiameter(int i);
@@ -18,10 +17,13 @@ public interface GraphLineView {
 	public int getDropPoint();
 
 	public void setDropPoint(int i);
-	
+
 	public void setDiameter(int col, double diameter);
+
+	public void setDefaultDiameters(int count);
 
 	public boolean getUpdate ();
 
 	public void setUpdate (boolean update);
+
 }

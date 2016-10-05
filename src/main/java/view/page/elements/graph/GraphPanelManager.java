@@ -1,15 +1,12 @@
 package view.page.elements.graph;
- 
-import java.awt.Dimension;
-import java.awt.Graphics; 
 
-import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
 import javax.swing.JPanel;
 
 import entity.Table;
 import entity.ModifyTable;
-import entity.SimpleTable; 
-import entity.TwoColTable; 
    
 
 public class GraphPanelManager extends JPanel {
@@ -34,12 +31,9 @@ public class GraphPanelManager extends JPanel {
 
 	private double maxPointSize;
 	private double maxPoitRadius;
-	
-	//private boolean b = true;
 	 
-
-	//public GraphPanelManager(){}
-	//public JPanel update (Table table1, ModifyTable ... tables) {
+	 
+ 
 	public GraphPanelManager (Table table1, ModifyTable ... tables) {
 
 		this.rootPanel = new RootGraphPanel(table1);
@@ -79,8 +73,7 @@ public class GraphPanelManager extends JPanel {
 		this.rootPanelY = (1 / ((ymax - ymin) / (rootPanel.getTable().getMaxY() - rootPanel.getTable().getMinY())));
 		
  		
-		this.maxPointSize = maxPoitRadius*2;
-		//return this;
+		this.maxPointSize = maxPoitRadius*2; 
 	}
 
 
@@ -94,20 +87,28 @@ public class GraphPanelManager extends JPanel {
 		double width = getSize().width - maxPointSize - 1;
 		updateRootGraphPanel( height, width);
 
-
-		System.out.println(rootPanel.getLineView().getUpdate());
+ 
+		
 		if(rootPanel.getLineView().getUpdate())
 			rootPanel.paintComponent(g);
 		else{
 			rootPanel.paintOld(g);
 		}
 		
+		rootPanel.getLineView().setUpdate(false);
+		
 		for (ModifyGraphPanel panel : topPanels) {
 			panel.setSize(new Dimension((int)width, (int)height));
-			panel.setPosition(new Dimension((int) maxPoitRadius, (int) maxPoitRadius));
-			panel.paintComponent(g);
-		}
-		rootPanel.getLineView().setUpdate(false);
+			panel.setPosition(new Dimension((int) maxPoitRadius, (int) maxPoitRadius)); 
+			
+			if(panel.getLineView().getUpdate())
+				panel.paintComponent(g);
+			else{
+				panel.paintOld(g);
+			}
+			panel.getLineView().setUpdate(false);
+			
+		} 
 	}
 
 	private void updateExtr(GraphPanel panel1) {
@@ -142,31 +143,5 @@ public class GraphPanelManager extends JPanel {
 		 
 	}
 
- 
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setTitle("Test");
-
-		Dimension size = new Dimension(300, 600);
-		f.setSize(size);
-
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		SimpleTable table1 = new SimpleTable(new double[][] {
-				new double[] { 0, 	1, 		1.5 },
-				new double[] { 0.5, 1.5, 	2 },
-				new double[] { 1, 	2, 		2.5 },
-				new double[] { 1.5, 2.5, 	3 } }, new String[] { "Hello", "Bye",
-				"Bye" });
-		ModifyTable table3 = new TwoColTable(new double[][] { new double[] { 2, 1.5 },
-				new double[] { 1, 2 }, new double[] { 0, 2.5 } }, new String[] {
-				"Hello", "Bye" });
-		ModifyTable table2 = new TwoColTable(new double[][] { new double[] { 0, 0 },
-				new double[] { 3, 1 }, }, new String[] { "Hello", "Bye" });
-
- 
-
-//		f.add(new GraphPanelManager(table1)); 
-		f.add(new GraphPanelManager(table1,table2,table3)); 
-		f.setVisible(true);
-	}
+  
 }

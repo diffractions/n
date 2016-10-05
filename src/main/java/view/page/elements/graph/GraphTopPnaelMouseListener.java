@@ -46,13 +46,11 @@ public class GraphTopPnaelMouseListener extends MouseAdapter {
 		this.panel = panel;
 	}
 
-	public void addComponent(Component comp) {
-		// System.out.println(table + " " + comp);
+	public void addComponent(Component comp) { 
 		this.hed.add(comp);
 	}
 
-	public void mouseDragged(MouseEvent e) {
-		// System.out.println(tables.get(table));
+	public void mouseDragged(MouseEvent e) { 
 		if (point != -1) {
 			int x = e.getX();
 			int y = e.getY();
@@ -63,19 +61,17 @@ public class GraphTopPnaelMouseListener extends MouseAdapter {
 
 
 	public void repaint(){
+		panel.getLineView().setUpdate(true);
 		for (Component com : tables.get(table))
 		com.repaint();
 	}
 
 	public void mousePressed(MouseEvent e) {
-		point = panel.searchPoint(e);
-		// System.out.println(point);
+		point = panel.searchPoint(e); 
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		point = -1;
-
-		// System.out.println(point);
+		point = -1; 
 	}
 
 }

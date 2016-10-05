@@ -1,4 +1,4 @@
-package view.page.elements.graph;
+package view.page.elements.elementview;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,7 +8,7 @@ import entity.Table;
 
 public class GraphLineWiew1 implements GraphLineView {
 
-	private ArrayList<Double> diameter = null;
+	protected ArrayList<Double> diameter = null;
 
 	
 	
@@ -16,11 +16,16 @@ public class GraphLineWiew1 implements GraphLineView {
 
 		diameter = new ArrayList<>();
 
-		for (int i = 0; i < table.getCollCount(); i++) {
-			// System.out.println("i = " + i);
-			diameter.add((double) 10);
+		setDefaultDiameters(table.getCollCount()); 
+	}
+
+	 
+	
+	@Override
+	public void setDefaultDiameters(int count) { 
+		for (int i = 0; i < count; i++) { 
+			diameter.add(10.0);
 		}
-//		System.out.println("C = " + diameter);
 	}
 
 	@Override
@@ -41,11 +46,13 @@ public class GraphLineWiew1 implements GraphLineView {
 
 	@Override
 	public double getDiameter(int i) {
+//		System.out.print(diameter.get(i));
 		return diameter.get(i);
 	}
 
 	@Override
 	public void update(Table table) {
+		setUpdate(true);
 
 		if (diameter.size() < table.getCollCount()) {
 			int add = table.getCollCount() - diameter.size();
@@ -76,14 +83,17 @@ public class GraphLineWiew1 implements GraphLineView {
 
 	@Override
 	public void setDropPoint(int i){
+		setUpdate(true);
 		 droppPoint = i;
 	}
 
 	@Override
 	public void setDiameter(int col, double diameter) {
+		setUpdate(true);
 		this.diameter.set(col, diameter);
 		
 	}
+
 
 	boolean update = true;
 	public boolean getUpdate (){return update;};

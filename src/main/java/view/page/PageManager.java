@@ -5,7 +5,7 @@ import java.awt.Container;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.page.elements.graph.GraphLineView;
+import view.page.elements.elementview.GraphLineView;
 import view.page.panels.GraphPanel;
 import view.page.panels.MenuPanel;
 import view.page.panels.RedactorPanel;
