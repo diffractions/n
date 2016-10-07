@@ -7,6 +7,8 @@ public interface ModifyGraphPanel extends GraphPanel {
 	public void movePoint(int pos, int newX, int newY);
 
 	public int searchPoint(MouseEvent e);
+	
+	//public void droppoint(int pos);
 
-	public void repaint();
+	//public void repaint();
 }

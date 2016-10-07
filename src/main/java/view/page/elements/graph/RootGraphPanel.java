@@ -51,22 +51,27 @@ public class RootGraphPanel extends JPanel implements GraphPanel {
 	public void paintComponent(Graphics g) {
 //		System.out.println("1");
 
-		rowMultiply = getWidth() / xdif;
-		colMultiply = getHeight() / ydif;
-		
-		points = new HashMap<Integer, LinkedList<Ellipse2D>>();
-
-		double[][] tableToDraw = getTableToDraw(table);
-		for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
-			for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber += PageManager.tableLineView
-					.get(this.table).getDropPoint()) {
- 
-				drawPoint(g, tableToDraw, collNumber, rowNumber); 
-
+		if(getLineView().getUpdate()){
+	
+	
+			rowMultiply = getWidth() / xdif;
+			colMultiply = getHeight() / ydif;
+			
+			points = new HashMap<Integer, LinkedList<Ellipse2D>>();
+	
+			double[][] tableToDraw = getTableToDraw(table);
+			for (int collNumber = 1; collNumber < table.getCollCount(); collNumber++) {
+				for (int rowNumber = 0; rowNumber < table.getRowCount(); rowNumber += PageManager.tableLineView
+						.get(this.table).getDropPoint()) {
+	 
+					drawPoint(g, tableToDraw, collNumber, rowNumber); 
+	
+				}
 			}
 		}
-
 		paintOld(g);
+		getLineView().setUpdate(false);
+
 	}
 
 	@Override

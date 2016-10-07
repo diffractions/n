@@ -7,6 +7,21 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+
+
 import entity.ModifyTable;
 
 public class GraphTopPnaelMouseListener extends MouseAdapter {
@@ -15,6 +30,7 @@ public class GraphTopPnaelMouseListener extends MouseAdapter {
 	private ModifyTable table;
 	private ModifyGraphPanel panel;
 	private LinkedList<Component> hed;
+	private JPopupMenu pm;
 
 	private static Map<ModifyTable, LinkedList<Component>> tables = new HashMap<ModifyTable, LinkedList<Component>>() {
 
@@ -60,6 +76,35 @@ public class GraphTopPnaelMouseListener extends MouseAdapter {
 	}
 
 
+	public void addPopupMeny(JPopupMenu menu){
+		this.pm = menu;
+        JMenuItem mi = new JMenuItem(table.getHeaders()[1]);
+        this.pm.add(mi);
+ 
+		for(int i=0; i<this.pm.getComponentCount(); i++)
+		if(this.pm.getComponent(i).getName().equals("add")){
+			((JMenuItem)this.pm.getComponent(i)).addItemListener(
+				new ItemListener(){
+					public void itemStateChanged(ItemEvent e){
+						System.out.println(e);
+					}
+				}
+			);
+		} else if(this.pm.getComponent(i).getName().equals("del")){System.out.println(2);}
+
+
+/*
+for (int i = 0; i < popupMenu.getComponentCount(); i++) {
+    if (popupMenu.getComponent(i).isVisible()) {
+      allItemsInvisible = false;
+      break;
+    }
+  } */
+
+	}
+
+
+
 	public void repaint(){
 		panel.getLineView().setUpdate(true);
 		for (Component com : tables.get(table))
@@ -70,8 +115,16 @@ public class GraphTopPnaelMouseListener extends MouseAdapter {
 		point = panel.searchPoint(e); 
 	}
 
+	
 	public void mouseReleased(MouseEvent e) {
+		if(point != -1 && this.pm!= null);
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			this.pm.show(e.getComponent(), e.getX(), e.getY());
+		}
 		point = -1; 
 	}
+
+
+
 
 }

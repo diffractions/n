@@ -32,15 +32,19 @@ public class GraphPanelManager extends JPanel {
 	private double maxPointSize;
 	private double maxPoitRadius;
 	 
-	 
+	private GraphPanelManagerPopMenu pm; 
  
 	public GraphPanelManager (Table table1, ModifyTable ... tables) {
+
+
 
 		this.rootPanel = new RootGraphPanel(table1);
 		this.topPanels = new TopGraphPanel [tables.length];
  		ml1 = new GraphRootPnaelUpdater (table1);
 		ml1.addComponent(this);
+		this.pm = new GraphPanelManagerPopMenu();
 
+	//	setComponentPopupMenu(this.pm);
 		updateExtr(rootPanel);
 		
 		for(int i = 0 ; i<tables.length; i++){
@@ -50,9 +54,14 @@ public class GraphPanelManager extends JPanel {
 			ml.addModifyGraphPanel(this.topPanels[i]);
 			ml.addComponent(this);
 			
+			ml.addPopupMeny(this.pm);
+
 			addMouseMotionListener(ml);
 			addMouseListener(ml); 
+		
+			pm.addTbale(tables[i]);
 			updateExtr(topPanels[i]); 
+		
 			
   		}
 		
@@ -86,27 +95,12 @@ public class GraphPanelManager extends JPanel {
 		double height = getSize().height - maxPointSize - 1;
 		double width = getSize().width - maxPointSize - 1;
 		updateRootGraphPanel( height, width);
-
- 
-		
-		if(rootPanel.getLineView().getUpdate())
-			rootPanel.paintComponent(g);
-		else{
-			rootPanel.paintOld(g);
-		}
-		
-		rootPanel.getLineView().setUpdate(false);
+		rootPanel.paintComponent(g);
 		
 		for (ModifyGraphPanel panel : topPanels) {
 			panel.setSize(new Dimension((int)width, (int)height));
 			panel.setPosition(new Dimension((int) maxPoitRadius, (int) maxPoitRadius)); 
-			
-			if(panel.getLineView().getUpdate())
-				panel.paintComponent(g);
-			else{
-				panel.paintOld(g);
-			}
-			panel.getLineView().setUpdate(false);
+			panel.paintComponent(g);
 			
 		} 
 	}
