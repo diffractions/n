@@ -47,10 +47,12 @@ public class TopGraphPanel extends RootGraphPanel implements ModifyGraphPanel {
 		return -1;
 	}
 	
-	//@Override
-	//public void droppoint(int pos){
-	//	
-	//};
+
+	@Override
+	public double [] grphToTable(double x, double y){
+		return new double []{rowToTable(x),colToTable(y)};
+
+	}
 
 	private double colToTable(double val) {
 		return ymin + (val / colMultiply);

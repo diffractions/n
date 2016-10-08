@@ -1,15 +1,19 @@
 package controller;
-
-import java.util.Arrays;
+ 
 
 import service.Crossing;
 import service.Fitting;
-import service.Spline;
+
+import java.util.Arrays;
+
 import entity.ModifyTable;
 import entity.SimpleTable;
+import entity.Table;
 import entity.TwoColTable;
+import ga.InitGA;
 import ga.Program;
 import service.table.TableDataFileManager;
+import utils.TableUtils;
 import service.Stage;
 import view.page.PageManager;
 
@@ -60,21 +64,20 @@ public class PaintTableController {
 	public static final String RESULT_TABLE_NAME = "ResultTable";
 	public static final String START_TABLE_NAME = "StartTable";
 	public static final String[] TAMPLETE_HEADERS = new String[] { "X", "Y" };
-	public static final String[] RESULT_HEADERS = new String[] { "X", "Y",
-			"Min", "Max" };
+	public static final String[] RESULT_HEADERS = new String[] { "X", "Min", "Max" };
 
-	private SimpleTable startTable = null;
-	private SimpleTable tampleteTable = null;
-	private SimpleTable resultTable = null;
-	private SimpleTable lastTable = null;
+	private  Table startTable = null;
+	private Table tampleteTable = null;
+	private Table resultTable = null;
+	private Table lastTable = null;
 
 	private PageManager indexPage;
 
 	TableDataFileManager tdfm = new TableDataFileManager();
 
-	private TwoColTable modExtr1;
+	private ModifyTable modExtr1;
 
-	private TwoColTable modExtr2;
+	private ModifyTable modExtr2;
 
 	public void openStartTable(String fPath) {
 		startTable = null;
@@ -87,7 +90,7 @@ public class PaintTableController {
 		showRedactor();
 	}
 
-	private void fillTamplTable(SimpleTable table, int colNumb) {
+	private void fillTamplTable(Table table, int colNumb) {
 		if (colNumb == 0) {
 			tampleteTable = new SimpleTable(table.getTable(), TAMPLETE_HEADERS);
 		}
@@ -96,8 +99,7 @@ public class PaintTableController {
 	public void createExtrTable(int i) {
 		if (!tampleteTable.hasCollByName("Smoth"))
 			addSmoth(0);
-		addExtr(i);
-//		indexPage.paintRedactorPage(tampleteTable);
+		findExtr(i);
 	}
 
 	public void createSmothTable(int i) {
@@ -105,42 +107,25 @@ public class PaintTableController {
 		indexPage.paintRedactorPage(tampleteTable);
 	}
 
-	private void addExtr(int i) {
-		int[] extrs = new Crossing(i).getExtr(tampleteTable.getTable(), 2);
-		int[][] extr = new Crossing(i).separateExtr(extrs,
-				tampleteTable.getTable().length);
-
-		double[] res1 = new Spline().getSpline(tampleteTable.getTable(),
-				extr[0], 2);
-		double[] res2 = new Spline().getSpline(tampleteTable.getTable(),
-				extr[1], 2);
-
-		tampleteTable.addCol(res1, "Extr1");
-		tampleteTable.addCol(res2, "Extr2");
-
-		resultTable = new SimpleTable(RESULT_HEADERS);
-
-		 modExtr1 = new TwoColTable(new String[]{"x", "Extr1"});
-		 modExtr2 = new TwoColTable(new String[]{"x", "Extr2"});
-		
-		for (int pos : extrs) {
-			modExtr1.addRow(new double[]{tampleteTable.getTable()[pos][0],tampleteTable.getTable()[pos][3]});
-			modExtr2.addRow(new double[]{tampleteTable.getTable()[pos][0],tampleteTable.getTable()[pos][4]});
-			resultTable.addRow(new double[] { 
-					tampleteTable.getTable()[pos][0],
-					tampleteTable.getTable()[pos][1],
-					tampleteTable.getTable()[pos][3],
-					tampleteTable.getTable()[pos][4] });
-		}
-
-//		indexPage.paintRedactorPage(tampleteTable);
-		indexPage.paintRedactorPage(tampleteTable, modExtr1, modExtr2);
-
-
-//		System.out.println(Arrays.deepToString(modExtr1.getTable()));
-//		System.out.println(Arrays.deepToString(modExtr2.getTable()));
-		
+	private void findExtr(int i) {
+		int[] extrs = new Crossing(i).getExtr(tampleteTable.getTable(), 2);  
+		modExtr1 = new TwoColTable(new String[] { "x", "Extr" });  
+		for (int pos : extrs)
+			modExtr1.addRow(new double[] { tampleteTable.getTable()[pos][0], tampleteTable.getTable()[pos][2] }); 
+		indexPage.paintRedactorPage(tampleteTable, modExtr1);
 	}
+	
+	public void separateExtr() {
+		TableUtils.sort(modExtr1, 0);
+		ModifyTable[] extr = TableUtils.separateExtr(modExtr1);
+		modExtr1 = extr[0];
+		modExtr2 = extr[1];
+		indexPage.paintRedactorPage(tampleteTable, modExtr1, modExtr2); 
+
+		resultTable = TableUtils.merge(modExtr1, modExtr2, RESULT_HEADERS);
+		System.out.println(Arrays.toString(resultTable.getColl("X")));
+	}
+
 
 	private void addSmoth(int i) {
 		double[] fitt = new Fitting(i).getFitt(startTable.getTable());
@@ -165,8 +150,6 @@ public class PaintTableController {
 			lastTable = tampleteTable;
 			indexPage.paintRedactorPage(tampleteTable);
 		} else if (stage == Stage.EXTR) {
-//			System.out.println(Arrays.deepToString(modExtr1.getTable()));
-//			System.out.println(Arrays.deepToString(modExtr2.getTable()));
 			stage = Stage.RESULT;
 			lastTable = resultTable;
 			indexPage.paintRedactorPage(resultTable);
@@ -187,5 +170,16 @@ public class PaintTableController {
 		}
 
 	}
+
+	public void calculateN() {
+		try {
+			InitGA.start(resultTable.getTable());
+		} catch (InterruptedException e) { 
+			e.printStackTrace();
+		}
+		
+	}
+
+
 
 }

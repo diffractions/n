@@ -44,7 +44,7 @@ public class GraphPanelManager extends JPanel {
 		ml1.addComponent(this);
 		this.pm = new GraphPanelManagerPopMenu();
 
-	//	setComponentPopupMenu(this.pm);
+		setComponentPopupMenu(this.pm);
 		updateExtr(rootPanel);
 		
 		for(int i = 0 ; i<tables.length; i++){
@@ -54,12 +54,12 @@ public class GraphPanelManager extends JPanel {
 			ml.addModifyGraphPanel(this.topPanels[i]);
 			ml.addComponent(this);
 			
-			ml.addPopupMeny(this.pm);
+//			ml.addPopupMeny(this.pm);
 
 			addMouseMotionListener(ml);
 			addMouseListener(ml); 
 		
-			pm.addTbale(tables[i]);
+			pm.addTbale(tables[i],ml);
 			updateExtr(topPanels[i]); 
 		
 			

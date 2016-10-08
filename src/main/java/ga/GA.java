@@ -9,7 +9,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeUnit; 
+ 
+import org.apache.log4j.Logger;
 
 public class GA implements Runnable {
 
@@ -93,47 +95,36 @@ public class GA implements Runnable {
 		this.ns = ns;
 	}
 
+	public static Logger log = Logger.getLogger("FLIE");
 	public static void main(String[] args) throws InterruptedException {
+		
 
-		double[][] k = new double[][] {
-				new double[] { 0.519, 0.079, 1.51, 500 },
-				new double[] { 0.529, 0.079, 1.51, 501 },
-				new double[] { 0.539, 0.079, 1.51, 502 },
-				new double[] { 0.548, 0.080, 1.51, 503 },
-				new double[] { 0.557, 0.080, 1.51, 504 },
-				new double[] { 0.564, 0.080, 1.51, 505 },
-				new double[] { 0.570, 0.081, 1.51, 506 },
-				new double[] { 0.573, 0.083, 1.51, 507 },
-				new double[] { 0.571, 0.086, 1.51, 508 },
-				new double[] { 0.562, 0.094, 1.51, 509 },
-				new double[] { 0.541, 0.110, 1.51, 510 },
-				new double[] { 0.506, 0.140, 1.51, 511 },
-				new double[] { 0.455, 0.189, 1.51, 512 },
-				new double[] { 0.398, 0.250, 1.51, 513 },
-				new double[] { 0.351, 0.305, 1.51, 514 }
 
-		};
-
+		 double[][] k = new double[][] {
+			new double[] { 413.45,	0.155,	0.237}};
+		
 		start_try(k);
 
 	}
 
-	public static Map<Integer, Set<Ind>> start_try(double[][] k)
-			throws InterruptedException {
+	public static Map<Double, Set<Ind>> start_try(double[][] k)
+
+			throws InterruptedException { 
 		int start_arr_length = 5;
 		int incr_count_arr_length = 35;
 
-		Map<Integer, Set<Ind>> ret = new HashMap<>();
+		Map<Double, Set<Ind>> ret = new HashMap<>();
+		
 		for (double[] t : k) {
 			ConcurrentSkipListSet<Ind> set = new ConcurrentSkipListSet<Ind>();
-			ThreadGroup tg = new ThreadGroup("" + t[0] + " " + t[1]);
+			ThreadGroup tg = new ThreadGroup("" + t[2] + " " + t[1]);
 			CountDownLatch cdl = new CountDownLatch(incr_count_arr_length);
 
 			for (int count = start_arr_length, length = start_arr_length; count <= start_arr_length
 					+ incr_count_arr_length - 1
 					& length <= start_arr_length + incr_count_arr_length - 1; count++, length++)
 
-				new Thread(tg, new GA(length, count, t[0], t[1], t[2], tg, set,
+				new Thread(tg, new GA(length, count, t[2], t[1], 1.5, tg, set,
 						cdl), "TN - " + count).start();
 
 			cdl.await(30, TimeUnit.SECONDS);
@@ -146,8 +137,8 @@ public class GA implements Runnable {
 			tg = null;
 			cdl = null;
 			if (set.size() > 0) {
-				System.out.println(t[3] + " :\t " + set);
-				ret.put((int) t[3], set);
+				System.out.println(t[0] + " :\t " + set);
+				ret.put( t[0], set);
 			}
 		}
 

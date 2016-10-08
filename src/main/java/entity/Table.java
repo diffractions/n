@@ -26,5 +26,6 @@ public interface Table {
 
 	public double getMinY() ;
 	public double[] getRow(int row) ;
+	public double[] getColl(String collName) ;
 
 }

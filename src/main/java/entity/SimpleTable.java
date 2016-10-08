@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Arrays;
+
 public class SimpleTable implements Table {
 
 	private double minX;
@@ -64,10 +66,12 @@ public class SimpleTable implements Table {
 	}
 
 	public void updCol(double[] col, int colls) {
-
 		for (int pos = 0; pos < col.length; pos++) {
 			table[pos][colls] = col[pos];
 		}
+
+//		System.out.println("1" + Arrays.deepToString(table));
+
 	}
 
 	public boolean hasCollByName(String collName) {
@@ -89,22 +93,32 @@ public class SimpleTable implements Table {
 			throw new NullPointerException("wrong coll");
 		int colls = -1;
 		if ((colls = getCollPosByName(collName)) != -1) {
+//			System.out.println("-------");
 			updCol(col, colls);
+//			System.out.println("2" + Arrays.deepToString(table));
 			return;
 		}
 
 	}
 
 	public void addCol(double[] col, String collName) {
-		if (col.length != getRowCount() || collName == null
+		if ((col.length != getRowCount() && 0!= getRowCount()) || collName == null
 				|| collName.equals(""))
 			throw new NullPointerException("wrong coll");
 
+		if(getTable().length ==0){
+			this.table = new double[col.length][getCollCount()];
+			this.rowCount = col.length;
+		}
+		
+//		System.out.println("--------------");
 		int colls = -1;
-		if ((colls = getCollPosByName(collName)) != -1) {
+		if ((colls = getCollPosByName(collName)) != -1 ) {
 			updCol(col, colls);
+//			System.out.println("4" + Arrays.deepToString(table));
 			return;
 		}
+//		System.out.println("+++++++++");
 
 		String[] head = new String[getCollCount() + 1];
 		for (int i = 0; i < getCollCount(); i++)
@@ -122,6 +136,9 @@ public class SimpleTable implements Table {
 			addRow[getCollCount() - 1] = col[pos];
 			updRow(pos, addRow);
 		}
+		
+
+//		System.out.println("3" + Arrays.deepToString(table));
 	}
 
 	public void addRow(double[] row) {
@@ -249,6 +266,24 @@ public class SimpleTable implements Table {
 	public double[] getRow(int row) {
 		double[] ret = new double[getCollCount()];
 		System.arraycopy(table[row], 0, ret, 0, getCollCount());
+		return ret;
+	}
+
+	@Override
+	public double[] getColl(String collName) {
+		if (  collName == null
+				|| collName.equals(""))
+			throw new NullPointerException("wrong coll");
+		int colls = -1;
+		if ((colls = getCollPosByName(collName)) == -1) { 
+			return null;
+		}
+		
+		double ret [] = new double [getRowCount()];
+		
+		for(int i  = 0; i< getRowCount(); i++){
+			ret[i]= getTable()[i][colls];
+		}
 		return ret;
 	}
 
