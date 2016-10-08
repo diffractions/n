@@ -9,7 +9,7 @@ public class Ind implements Comparator<Ind>, Comparable<Ind> {
 //	 return "Ind [arrn=" + Arrays.toString(arrn) + ", arrx="
 //	 + Arrays.toString(arrx) + ", fitness =" + fitness + "]";
 //	 }
-
+ 
 	 @Override
 	 public String toString() {
 	 return "[\tfitness=\t" + fitness + "\t,\tn = \t" + nf + "\t,\tx = \t" + xf + "\t]";
