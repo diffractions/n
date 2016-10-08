@@ -20,7 +20,7 @@ import view.page.PageManager;
 public class PaintTableController {
 
 	public Stage getStage() {
-		return stage;
+		return stage; 
 	}
 
 	private Stage stage = null;
