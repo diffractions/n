@@ -2,7 +2,7 @@ package ga;
 
 import java.util.Arrays;
 import java.util.Comparator;
-
+ 
 public class Ind implements Comparator<Ind>, Comparable<Ind> {
 //	 @Override
 //	 public String toString() {
