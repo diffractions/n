@@ -107,6 +107,46 @@ public class GA implements Runnable {
 
 	}
 
+
+
+	public static Map<Double, Set<Ind>> start_try(double[][] k, int a, int b)
+
+			throws InterruptedException { 
+		int start_arr_length = a;
+		int incr_count_arr_length = b;
+
+		Map<Double, Set<Ind>> ret = new HashMap<>();
+		
+		for (double[] t : k) {
+			ConcurrentSkipListSet<Ind> set = new ConcurrentSkipListSet<Ind>();
+			ThreadGroup tg = new ThreadGroup("" + t[2] + " " + t[1]);
+			CountDownLatch cdl = new CountDownLatch(incr_count_arr_length);
+
+			for (int count = start_arr_length, length = start_arr_length; count <= start_arr_length
+					+ incr_count_arr_length - 1
+					& length <= start_arr_length + incr_count_arr_length - 1; count++, length++)
+
+				new Thread(tg, new GA(length, count, t[2], t[1], 1.5, tg, set,
+						cdl), "TN - " + count).start();
+
+			cdl.await(30, TimeUnit.SECONDS);
+			// cdl.await(200, TimeUnit.MILLISECONDS);
+			tg.interrupt();
+			// System.out.println(t[0] + "\t" + t[1] + " :\t " + set);
+			// System.out.println(t[3] + " :\t " + set);
+			System.out.println(k.length);
+			// set = null;
+			tg = null;
+			cdl = null;
+			if (set.size() > 0) {
+				System.out.println(t[0] + " :\t " + set);
+				ret.put( t[0], set);
+			}
+		}
+
+		return ret;
+	}
+
 	public static Map<Double, Set<Ind>> start_try(double[][] k)
 
 			throws InterruptedException { 

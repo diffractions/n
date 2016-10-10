@@ -181,5 +181,22 @@ public class PaintTableController {
 	}
 
 
+	public void calculateN(int a, int b) {
+		try {
+			InitGA.start(resultTable.getTable(),a,b);
+		} catch (InterruptedException e) { 
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public void stopCalculateN() {
+			InitGA.stop();
+
+		
+	}
+
+
 
 }

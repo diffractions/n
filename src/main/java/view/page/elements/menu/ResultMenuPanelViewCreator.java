@@ -33,9 +33,14 @@ public class ResultMenuPanelViewCreator extends AbstractMenuPanelViewCreator imp
 		JPanel panel = null;
 		if (table != null) {
 
+			
+			final JTextField iter = new JTextField(4);
+			final JTextField thr = new JTextField(4);
+
 			panel = new JPanel();
 
 			final JButton b_calc = new JButton("CLACULATE");
+			final JButton stop = new JButton("STOP");
 
 			b_calc.setEnabled(true);
 
@@ -43,13 +48,32 @@ public class ResultMenuPanelViewCreator extends AbstractMenuPanelViewCreator imp
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					PaintTableController.getInstance().calculateN();
+					if(new Integer(iter.getText())!=null && new Integer(thr.getText())!=null)
+						PaintTableController.getInstance().calculateN(new Integer(iter.getText()),new Integer(thr.getText()));
+					else
+						PaintTableController.getInstance().calculateN();
 				}
 			};
 
 			b_calc.addActionListener(listener1);
 
+
+			stop.setEnabled(true);
+
+			ActionListener listener2 = new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PaintTableController.getInstance().stopCalculateN();
+				}
+			};
+
+			stop.addActionListener(listener2);
+
+			panel.add(stop);
 			panel.add(b_calc);
+			panel.add(iter);
+			panel.add(thr);
 		}
 		return panel;
 	}
