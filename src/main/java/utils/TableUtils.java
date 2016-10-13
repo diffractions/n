@@ -45,6 +45,21 @@ public class TableUtils {
 
 	}
 
+	public static double[] calculateNSubstr(double[] minSrc) {
+
+		double[] ret = new double[minSrc.length];
+		
+		
+		for(int  i = 0; i< ret.length; i++){
+			ret[i]=		(1+Math.sqrt(minSrc[i]*(2-minSrc[i])))/(1-minSrc[i]);
+		}
+		
+
+		
+		return ret;
+
+	}
+
 	// public static ModifyTable[] separateExtr(ModifyTable src1,ModifyTable
 	// src2) {
 	//
@@ -128,24 +143,22 @@ public class TableUtils {
 			return new ModifyTable[] { m2, m1 };
 	}
 
-	
-	public static Table merge(ModifyTable m1, ModifyTable m2, String [] headers) {
-		
+	public static Table merge(ModifyTable m1, ModifyTable m2, String[] headers) {
+
 		Table ret = new SimpleTable(headers);
-		ModifyTable[] s = sort(m1,m2);
-		
-		for( double [] k1 : s[0].getTable()){
-			for(double [] k2 : s[1].getTable()){
-				if(k1[0]==k2[0]){
-					ret.addRow(new double[]{k1[0],k1[1],k2[1]});
+		ModifyTable[] s = sort(m1, m2);
+
+		for (double[] k1 : s[0].getTable()) {
+			for (double[] k2 : s[1].getTable()) {
+				if (k1[0] == k2[0]) {
+					ret.addRow(new double[] { k1[0], k1[1], k2[1] });
 				}
 			}
 		}
-		
+
 		return ret;
 	}
-	
-	
+
 	// public static void getSpline(ModifyTable dst, ModifyTable src, int coll)
 	// {
 	//

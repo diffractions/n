@@ -123,6 +123,12 @@ public class PaintTableController {
 		indexPage.paintRedactorPage(tampleteTable, modExtr1, modExtr2); 
 
 		resultTable = TableUtils.merge(modExtr1, modExtr2, RESULT_HEADERS);
+		
+		 
+
+		resultTable.addCol(TableUtils.calculateNSubstr(resultTable.getColl("Min")), "r substrate");
+//		resultTable.addCol(TableUtils.calculateNSubstr(resultTable.getColl("Max")), "r substrate 2");
+		
 		System.out.println(Arrays.toString(resultTable.getColl("X")));
 	}
 

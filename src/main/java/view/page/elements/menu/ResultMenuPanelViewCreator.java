@@ -48,10 +48,17 @@ public class ResultMenuPanelViewCreator extends AbstractMenuPanelViewCreator imp
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(new Integer(iter.getText())!=null && new Integer(thr.getText())!=null)
+					if(!iter.getText().equals("") && !thr.getText().equals(""))
 						PaintTableController.getInstance().calculateN(new Integer(iter.getText()),new Integer(thr.getText()));
 					else
-						PaintTableController.getInstance().calculateN();
+						new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								PaintTableController.getInstance().calculateN();
+								
+							}
+						}).start();
 				}
 			};
 

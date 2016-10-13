@@ -103,8 +103,8 @@ public class SimpleTable implements Table {
 
 	public void addCol(double[] col, String collName) {
 		if ((col.length != getRowCount() && 0!= getRowCount()) || collName == null
-				|| collName.equals(""))
-			throw new NullPointerException("wrong coll");
+				|| collName.equals("")) 
+			throw new NullPointerException("wrong coll" + col.length + " " + getRowCount());
 
 		if(getTable().length ==0){
 			this.table = new double[col.length][getCollCount()];
